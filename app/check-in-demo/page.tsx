@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCheckIn } from "./context";
 import { MOCK_ATTENDEES, TYPE_COLORS, BRAND } from "@/components/CheckInDemo/types";
+import SwapcardLogo from "@/components/CheckInDemo/SwapcardLogo";
 
 const PERSPECTIVES = [
   {
@@ -79,17 +80,9 @@ export default function CheckInHubPage() {
     >
       {/* ── Top bar ── */}
       <header className="flex items-center justify-between px-8 pt-6 pb-2 flex-shrink-0">
-        <div className="flex items-center gap-2.5">
-          <div
-            className="w-7 h-7 rounded flex items-center justify-center text-sm font-black text-white"
-            style={{ backgroundColor: BRAND.teal }}
-          >
-            S
-          </div>
-          <span className="text-sm font-bold" style={{ color: "rgba(255,255,255,0.8)", letterSpacing: "-0.01em" }}>
-            Swapcard
-          </span>
-          <span className="text-[11px] px-2 py-0.5 rounded-full font-semibold ml-1" style={{ backgroundColor: "rgba(3,171,129,0.15)", color: BRAND.teal }}>
+        <div className="flex items-center gap-3">
+          <SwapcardLogo height={22} onDark />
+          <span className="text-[11px] px-2 py-0.5 rounded-full font-semibold" style={{ backgroundColor: "rgba(3,171,129,0.15)", color: BRAND.teal }}>
             Demo
           </span>
         </div>

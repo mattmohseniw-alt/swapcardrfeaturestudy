@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCheckIn } from "@/app/check-in-demo/context";
 import { MOCK_ATTENDEES, BRAND } from "./types";
+import SwapcardLogo from "./SwapcardLogo";
 
 type ViewId = "attendee" | "organizer" | "staff" | "swapcard-ops";
 
@@ -39,19 +40,8 @@ export default function ViewNav({ active }: Props) {
       }}
     >
       {/* Swapcard wordmark */}
-      <Link
-        href="/check-in-demo"
-        className="flex items-center gap-2 mr-4 flex-shrink-0"
-      >
-        <div
-          className="w-5 h-5 rounded flex items-center justify-center text-[10px] font-black text-white"
-          style={{ backgroundColor: BRAND.teal }}
-        >
-          S
-        </div>
-        <span className="text-[12px] font-bold" style={{ color: "rgba(255,255,255,0.75)", letterSpacing: "-0.01em" }}>
-          Swapcard
-        </span>
+      <Link href="/check-in-demo" className="flex items-center mr-4 flex-shrink-0">
+        <SwapcardLogo height={18} onDark />
       </Link>
 
       <span className="mr-3" style={{ color: "rgba(255,255,255,0.12)", fontSize: 14 }}>|</span>

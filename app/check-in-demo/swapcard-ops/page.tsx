@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCheckIn } from "../context";
 import { MOCK_ATTENDEES, TYPE_COLORS, BRAND, LogEntry } from "@/components/CheckInDemo/types";
 import ViewNav from "@/components/CheckInDemo/ViewNav";
+import SwapcardPicto from "@/components/CheckInDemo/SwapcardPicto";
 
 // ─── Badge job state machine ──────────────────────────────────────────────────
 
@@ -189,9 +190,7 @@ export default function SwapcardOpsView() {
       >
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black text-white" style={{ backgroundColor: BRAND.teal }}>
-              S
-            </div>
+            <SwapcardPicto size={28} />
             <div>
               <div className="text-[11px] font-black tracking-[0.12em] text-white/70">SWAPCARD PLATFORM</div>
               <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>Internal Ops · EVT-2025-0042</div>

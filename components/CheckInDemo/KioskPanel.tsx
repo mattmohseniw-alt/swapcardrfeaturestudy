@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { KioskState, Attendee, TYPE_COLORS, BRAND } from "./types";
+import SwapcardLogo from "./SwapcardLogo";
 
 // ─── QR code grid (21×21, generated once at module load) ─────────────────────
 
@@ -58,9 +59,7 @@ function BadgeCard({ attendee }: { attendee: Attendee }) {
       style={{ width: 260, boxShadow: "0 16px 48px rgba(0,0,0,0.28), 0 4px 16px rgba(0,0,0,0.15)" }}
     >
       <div className="flex items-center justify-between px-4 py-2.5" style={{ backgroundColor: BRAND.navy }}>
-        <span className="text-xs font-bold tracking-widest text-white/80" style={{ letterSpacing: "0.18em" }}>
-          SWAPCARD
-        </span>
+        <SwapcardLogo height={14} onDark />
         <span className="text-[10px] font-medium text-white/40">Tech Summit 2025</span>
       </div>
       <div className="flex">

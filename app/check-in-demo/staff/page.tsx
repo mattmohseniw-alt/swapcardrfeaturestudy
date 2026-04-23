@@ -5,6 +5,7 @@ import { useCheckIn } from "../context";
 import { MOCK_ATTENDEES, TYPE_COLORS, BRAND, AttendeeType } from "@/components/CheckInDemo/types";
 import ViewNav from "@/components/CheckInDemo/ViewNav";
 import KioskPanel from "@/components/CheckInDemo/KioskPanel";
+import SwapcardPicto from "@/components/CheckInDemo/SwapcardPicto";
 
 // ─── Countdown hook ───────────────────────────────────────────────────────────
 
@@ -207,9 +208,7 @@ export default function StaffView() {
                 style={{ backgroundColor: BRAND.navy }}
               >
                 <div className="flex items-center gap-2">
-                  <div className="w-5 h-5 rounded flex items-center justify-center text-[9px] font-black text-white" style={{ backgroundColor: BRAND.teal }}>
-                    S
-                  </div>
+                  <SwapcardPicto size={20} />
                   <span className="text-xs font-black tracking-[0.15em] text-white/70">TECH SUMMIT 2025</span>
                 </div>
                 <div className="flex items-center gap-1.5">

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCheckIn } from "../context";
 import { MOCK_ATTENDEES, TYPE_COLORS, BRAND, AttendeeType } from "@/components/CheckInDemo/types";
 import ViewNav from "@/components/CheckInDemo/ViewNav";
+import SwapcardLogo from "@/components/CheckInDemo/SwapcardLogo";
 
 // ─── Type breakdown rows ──────────────────────────────────────────────────────
 
@@ -37,17 +38,9 @@ function Sidebar({ checkedCount, total }: { checkedCount: number; total: number 
     >
       {/* Branding */}
       <div className="px-5 py-5 flex-shrink-0" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
-        <div className="flex items-center gap-2.5">
-          <div
-            className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black text-white"
-            style={{ backgroundColor: BRAND.teal }}
-          >
-            S
-          </div>
-          <div>
-            <div className="text-sm font-bold text-white" style={{ letterSpacing: "-0.01em" }}>Swapcard</div>
-            <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>Studio</div>
-          </div>
+        <SwapcardLogo height={20} onDark />
+        <div className="mt-1 text-[10px] font-semibold" style={{ color: "rgba(255,255,255,0.3)", letterSpacing: "0.06em" }}>
+          STUDIO
         </div>
       </div>
 

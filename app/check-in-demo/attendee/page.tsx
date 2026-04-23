@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCheckIn } from "../context";
 import { MOCK_ATTENDEES, TYPE_COLORS, BRAND } from "@/components/CheckInDemo/types";
 import ViewNav from "@/components/CheckInDemo/ViewNav";
+import SwapcardPicto from "@/components/CheckInDemo/SwapcardPicto";
+import SwapcardLogo from "@/components/CheckInDemo/SwapcardLogo";
 
 // ─── Clock ────────────────────────────────────────────────────────────────────
 
@@ -141,12 +143,7 @@ export default function AttendeeView() {
               style={{ backgroundColor: BRAND.navy, borderBottom: `1px solid rgba(255,255,255,0.07)` }}
             >
               <div className="flex items-center gap-2">
-                <div
-                  className="w-5 h-5 rounded flex items-center justify-center text-[9px] font-black text-white flex-shrink-0"
-                  style={{ backgroundColor: BRAND.teal }}
-                >
-                  S
-                </div>
+                <SwapcardPicto size={22} style={{ flexShrink: 0 }} />
                 <div>
                   <div className="font-bold text-sm text-white" style={{ letterSpacing: "-0.01em" }}>Tech Summit 2025</div>
                   <div className="text-[11px]" style={{ color: "rgba(255,255,255,0.4)" }}>Hall A · Doors open 9:00 AM</div>
@@ -177,7 +174,7 @@ export default function AttendeeView() {
               {/* Ticket card */}
               <div className="rounded-2xl overflow-hidden" style={{ boxShadow: BRAND.cardShadow }}>
                 <div className="flex items-center justify-between px-4 py-3" style={{ backgroundColor: BRAND.navy }}>
-                  <span className="text-xs font-black tracking-[0.18em] text-white/80">SWAPCARD</span>
+                  <SwapcardLogo height={13} onDark />
                   <span className="text-[10px] text-white/40">Tech Summit 2025</span>
                 </div>
                 <div className="flex bg-white">
