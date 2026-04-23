@@ -52,13 +52,37 @@ export type Action =
   | { type: "SET_KIOSK"; status: KioskStatus; attendee?: Attendee | null }
   | { type: "RESET" };
 
+// ─── Swapcard brand constants ─────────────────────────────────────────────────
+
+export const BRAND = {
+  teal:        "#03ab81",   // primary brand green
+  tealDark:    "#028a68",   // hover / active teal
+  tealLight:   "#D7F5F1",   // light teal highlight bg
+  tealFaint:   "#edfaf6",   // very light teal surface
+  navy:        "#262e3d",   // primary dark / sidebar bg
+  navyMid:     "#374255",   // secondary text
+  navyLight:   "#5a6478",   // tertiary text
+  muted:       "#8b99a8",   // muted text
+  border:      "#d4dae3",   // borders / dividers
+  orange:      "#d1481d",   // CTA / accent orange
+  pageBg:      "#f4f5f7",   // light page background
+  cardBg:      "#ffffff",   // card background
+  cardShadow:  "0 2px 12px rgba(172,184,205,0.28)",
+  // Dark-mode surfaces (nav, sidebar, device frames, ops page)
+  darkBg:      "#1a2332",   // dark page bg
+  darkBgDeep:  "#0f1724",   // deepest dark bg
+  darkSurface: "#242f42",   // dark card / panel
+  darkBorder:  "rgba(255,255,255,0.08)",
+  darkMuted:   "rgba(255,255,255,0.3)",
+} as const;
+
 // ─── Type colour system ───────────────────────────────────────────────────────
 
 export const TYPE_COLORS: Record<
   AttendeeType,
   { bg: string; fill: string; text: string; stripe: string }
 > = {
-  Attendee: { bg: "#1D9E75", fill: "#E1F5EE", text: "#0d5c42", stripe: "#1D9E75" },
+  Attendee: { bg: "#03ab81", fill: "#D7F5F1", text: "#016d53", stripe: "#03ab81" },
   VIP:      { bg: "#534AB7", fill: "#EEEDFE", text: "#2d268a", stripe: "#534AB7" },
   Exhibitor:{ bg: "#BA7517", fill: "#FAEEDA", text: "#7a4d0e", stripe: "#BA7517" },
   Speaker:  { bg: "#D85A30", fill: "#FAECE7", text: "#8c3417", stripe: "#D85A30" },

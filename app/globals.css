@@ -1,22 +1,35 @@
 @import "tailwindcss";
 
 @theme {
-  --color-dark-teal: #0D3D3A;
-  --color-primary-teal: #028090;
-  --color-mint: #02C39A;
-  --color-light-bg: #F4FAFA;
-  --color-light-teal: #E8F6F5;
+  /* Swapcard brand palette */
+  --color-brand-teal:       #03ab81;
+  --color-brand-teal-dark:  #028a68;
+  --color-brand-teal-light: #D7F5F1;
+  --color-brand-navy:       #262e3d;
+  --color-brand-navy-mid:   #374255;
+  --color-brand-orange:     #d1481d;
+  --color-brand-border:     #d4dae3;
+  --color-brand-bg:         #f4f5f7;
+
+  /* Legacy aliases (keep for existing CaseStudy slides) */
+  --color-dark-teal:    #262e3d;
+  --color-primary-teal: #03ab81;
+  --color-mint:         #03ab81;
+  --color-light-bg:     #f4f5f7;
+  --color-light-teal:   #D7F5F1;
 }
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #262e3d;
 }
 
 body {
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-work-sans), "Work Sans", Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
+  color: #262e3d;
+  -webkit-font-smoothing: antialiased;
 }
 
 * {

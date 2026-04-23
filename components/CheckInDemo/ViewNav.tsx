@@ -2,22 +2,22 @@
 
 import Link from "next/link";
 import { useCheckIn } from "@/app/check-in-demo/context";
-import { MOCK_ATTENDEES } from "./types";
+import { MOCK_ATTENDEES, BRAND } from "./types";
 
 type ViewId = "attendee" | "organizer" | "staff" | "swapcard-ops";
 
 const VIEWS: { id: ViewId; label: string; href: string }[] = [
-  { id: "attendee",     label: "👤 Attendee",    href: "/check-in-demo/attendee" },
-  { id: "organizer",   label: "📊 Organizer",    href: "/check-in-demo/organizer" },
-  { id: "staff",       label: "🖥 Staff",         href: "/check-in-demo/staff" },
-  { id: "swapcard-ops",label: "🔧 Swapcard Ops", href: "/check-in-demo/swapcard-ops" },
+  { id: "attendee",      label: "Attendee",     href: "/check-in-demo/attendee" },
+  { id: "organizer",     label: "Organizer",    href: "/check-in-demo/organizer" },
+  { id: "staff",         label: "Staff",        href: "/check-in-demo/staff" },
+  { id: "swapcard-ops",  label: "Swapcard Ops", href: "/check-in-demo/swapcard-ops" },
 ];
 
 const VIEW_LABELS: Record<ViewId, string> = {
   attendee:      "Attendee View",
-  organizer:     "Organizer View",
-  staff:         "Staff View",
-  "swapcard-ops":"Swapcard Ops",
+  organizer:     "Organizer Dashboard",
+  staff:         "Staff Kiosk",
+  "swapcard-ops":"Internal Ops",
 };
 
 interface Props {
@@ -31,60 +31,78 @@ export default function ViewNav({ active }: Props) {
 
   return (
     <nav
-      className="flex items-center gap-3 px-5 flex-shrink-0"
+      className="flex items-center gap-1 px-4 flex-shrink-0"
       style={{
-        height: 36,
-        backgroundColor: "#061d1b",
-        borderBottom: "1px solid rgba(2,195,154,0.1)",
+        height: 40,
+        backgroundColor: BRAND.navy,
+        borderBottom: `1px solid rgba(255,255,255,0.07)`,
       }}
     >
-      {/* Back to hub */}
+      {/* Swapcard wordmark */}
       <Link
         href="/check-in-demo"
-        className="flex items-center gap-1.5 text-[11px] font-medium"
-        style={{ color: "rgba(255,255,255,0.3)" }}
+        className="flex items-center gap-2 mr-4 flex-shrink-0"
       >
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M7.5 9.5L4 6l3.5-3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-        Hub
+        <div
+          className="w-5 h-5 rounded flex items-center justify-center text-[10px] font-black text-white"
+          style={{ backgroundColor: BRAND.teal }}
+        >
+          S
+        </div>
+        <span className="text-[12px] font-bold" style={{ color: "rgba(255,255,255,0.75)", letterSpacing: "-0.01em" }}>
+          Swapcard
+        </span>
       </Link>
 
-      <span style={{ color: "rgba(255,255,255,0.1)" }}>|</span>
+      <span className="mr-3" style={{ color: "rgba(255,255,255,0.12)", fontSize: 14 }}>|</span>
 
-      {/* View links */}
-      {VIEWS.map((v) => (
-        <Link
-          key={v.id}
-          href={v.href}
-          className="text-[11px] font-semibold"
-          style={{ color: v.id === active ? "#02C39A" : "rgba(255,255,255,0.3)" }}
-        >
-          {v.label}
-        </Link>
-      ))}
+      {/* View tabs */}
+      {VIEWS.map((v) => {
+        const isActive = v.id === active;
+        return (
+          <Link
+            key={v.id}
+            href={v.href}
+            className="relative flex items-center px-3 h-full text-[12px] font-medium transition-colors"
+            style={{
+              color: isActive ? BRAND.teal : "rgba(255,255,255,0.4)",
+            }}
+          >
+            {v.label}
+            {isActive && (
+              <span
+                className="absolute bottom-0 left-3 right-3 h-0.5 rounded-t-full"
+                style={{ backgroundColor: BRAND.teal }}
+              />
+            )}
+          </Link>
+        );
+      })}
 
       {/* Spacer */}
       <div className="flex-1" />
 
-      {/* Current view label + live counter */}
-      <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.2)" }}>
+      {/* Current view + live pill */}
+      <span className="text-[11px] font-medium mr-2" style={{ color: "rgba(255,255,255,0.25)" }}>
         {VIEW_LABELS[active]}
       </span>
-      <span style={{ color: "rgba(255,255,255,0.08)" }}>·</span>
-      <div className="flex items-center gap-1.5">
+
+      <div
+        className="flex items-center gap-1.5 px-2.5 py-1 rounded-full"
+        style={{
+          backgroundColor: "rgba(3,171,129,0.12)",
+          border: "1px solid rgba(3,171,129,0.2)",
+        }}
+      >
         <span
           className="w-1.5 h-1.5 rounded-full inline-block"
           style={{
-            backgroundColor: "#02C39A",
-            opacity: checkedCount > 0 ? 1 : 0.35,
+            backgroundColor: BRAND.teal,
+            opacity: checkedCount > 0 ? 1 : 0.4,
           }}
         />
-        <span className="text-[11px] font-bold tabular-nums" style={{ color: "#02C39A" }}>
+        <span className="text-[11px] font-bold tabular-nums" style={{ color: BRAND.teal }}>
           {checkedCount}&thinsp;/&thinsp;{total}
-        </span>
-        <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>
-          checked in
         </span>
       </div>
     </nav>
