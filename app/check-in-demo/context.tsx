@@ -8,7 +8,7 @@ import {
   useRef,
   useEffect,
 } from "react";
-import type { Attendee, AppState, Action, CheckedInBy } from "@/components/CheckInDemo/types";
+import type { Attendee, AppState, Action, CheckedInBy, BadgeConfig } from "@/components/CheckInDemo/types";
 import { reducer, INITIAL_STATE } from "@/components/CheckInDemo/types";
 
 // ─── Context shape ────────────────────────────────────────────────────────────
@@ -19,6 +19,8 @@ interface CheckInCtx {
   checkIn: (attendeeId: number, by?: CheckedInBy) => void;
   /** Check in all attendees matching the predicate (e.g. by type) */
   checkInBatch: (predicate: (a: Attendee) => boolean, by?: CheckedInBy) => void;
+  /** Apply a badge config to the shared event state */
+  setBadgeConfig: (config: BadgeConfig) => void;
   /** Reset all check-in state */
   reset: () => void;
 }
@@ -75,13 +77,17 @@ export function CheckInProvider({ children }: { children: React.ReactNode }) {
     []
   );
 
+  const setBadgeConfig = useCallback((config: BadgeConfig) => {
+    dispatch({ type: "SET_BADGE_CONFIG", config });
+  }, []);
+
   const reset = useCallback(() => {
     inflightRef.current.clear();
     dispatch({ type: "RESET" });
   }, []);
 
   return (
-    <CheckInContext.Provider value={{ state, checkIn, checkInBatch, reset }}>
+    <CheckInContext.Provider value={{ state, checkIn, checkInBatch, setBadgeConfig, reset }}>
       {children}
     </CheckInContext.Provider>
   );

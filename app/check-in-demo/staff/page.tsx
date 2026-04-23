@@ -226,7 +226,7 @@ export default function StaffView() {
               <div className="flex flex-1 overflow-hidden">
                 <SearchPanel />
                 <div className="flex-1 flex flex-col overflow-hidden">
-                  <KioskPanel kioskState={state.kioskState} />
+                  <KioskPanel kioskState={state.kioskState} badgeConfig={state.badgeConfig} />
                 </div>
               </div>
 

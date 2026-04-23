@@ -5,20 +5,22 @@ import { useCheckIn } from "@/app/check-in-demo/context";
 import { MOCK_ATTENDEES, BRAND } from "./types";
 import SwapcardLogo from "./SwapcardLogo";
 
-type ViewId = "attendee" | "organizer" | "staff" | "swapcard-ops";
+type ViewId = "attendee" | "organizer" | "staff" | "swapcard-ops" | "badge-designer";
 
 const VIEWS: { id: ViewId; label: string; href: string }[] = [
-  { id: "attendee",      label: "Attendee",     href: "/check-in-demo/attendee" },
-  { id: "organizer",     label: "Organizer",    href: "/check-in-demo/organizer" },
-  { id: "staff",         label: "Staff",        href: "/check-in-demo/staff" },
-  { id: "swapcard-ops",  label: "Swapcard Ops", href: "/check-in-demo/swapcard-ops" },
+  { id: "attendee",        label: "Attendee",       href: "/check-in-demo/attendee" },
+  { id: "organizer",       label: "Organizer",      href: "/check-in-demo/organizer" },
+  { id: "staff",           label: "Staff",          href: "/check-in-demo/staff" },
+  { id: "swapcard-ops",    label: "Swapcard Ops",   href: "/check-in-demo/swapcard-ops" },
+  { id: "badge-designer",  label: "Badge Designer", href: "/check-in-demo/badge-designer" },
 ];
 
 const VIEW_LABELS: Record<ViewId, string> = {
-  attendee:      "Attendee View",
-  organizer:     "Organizer Dashboard",
-  staff:         "Staff Kiosk",
-  "swapcard-ops":"Internal Ops",
+  attendee:         "Attendee View",
+  organizer:        "Organizer Dashboard",
+  staff:            "Staff Kiosk",
+  "swapcard-ops":   "Internal Ops",
+  "badge-designer": "Badge Designer",
 };
 
 interface Props {

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { KioskState, Attendee, TYPE_COLORS, BRAND } from "./types";
+import { KioskState, Attendee, TYPE_COLORS, BRAND, BadgeConfig } from "./types";
 import SwapcardLogo from "./SwapcardLogo";
 
 // ─── QR code grid (21×21, generated once at module load) ─────────────────────
@@ -48,8 +48,10 @@ function QRCodeSVG({ dim, color }: { dim: number; color: string }) {
 
 // ─── Badge card ───────────────────────────────────────────────────────────────
 
-function BadgeCard({ attendee }: { attendee: Attendee }) {
-  const colors = TYPE_COLORS[attendee.type];
+function BadgeCard({ attendee, badgeConfig }: { attendee: Attendee; badgeConfig?: BadgeConfig }) {
+  const colors   = TYPE_COLORS[attendee.type];
+  const headerBg = badgeConfig?.primaryColor ?? BRAND.navy;
+  const stripe   = badgeConfig?.accentColor  ?? colors.stripe;
   return (
     <motion.div
       initial={{ opacity: 0, y: 28, scale: 0.9 }}
@@ -58,12 +60,12 @@ function BadgeCard({ attendee }: { attendee: Attendee }) {
       className="rounded-2xl overflow-hidden bg-white select-none"
       style={{ width: 260, boxShadow: "0 16px 48px rgba(0,0,0,0.28), 0 4px 16px rgba(0,0,0,0.15)" }}
     >
-      <div className="flex items-center justify-between px-4 py-2.5" style={{ backgroundColor: BRAND.navy }}>
+      <div className="flex items-center justify-between px-4 py-2.5" style={{ backgroundColor: headerBg }}>
         <SwapcardLogo height={14} onDark />
         <span className="text-[10px] font-medium text-white/40">Tech Summit 2025</span>
       </div>
       <div className="flex">
-        <div className="w-2 flex-shrink-0" style={{ backgroundColor: colors.stripe }} />
+        <div className="w-2 flex-shrink-0" style={{ backgroundColor: stripe }} />
         <div className="flex-1 px-4 py-4">
           <div className="font-black text-lg leading-tight mb-0.5" style={{ color: BRAND.navy, letterSpacing: "-0.02em" }}>
             {attendee.name}
@@ -95,9 +97,9 @@ function Spinner() {
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
-interface Props { kioskState: KioskState; }
+interface Props { kioskState: KioskState; badgeConfig?: BadgeConfig; }
 
-export default function KioskPanel({ kioskState }: Props) {
+export default function KioskPanel({ kioskState, badgeConfig }: Props) {
   const { status, attendee } = kioskState;
 
   return (
@@ -177,7 +179,7 @@ export default function KioskPanel({ kioskState }: Props) {
                 <div className="text-base font-bold text-white">Check-in successful!</div>
                 <div className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>Badge printing…</div>
               </div>
-              <BadgeCard attendee={attendee} />
+              <BadgeCard attendee={attendee} badgeConfig={badgeConfig} />
             </motion.div>
           )}
         </AnimatePresence>

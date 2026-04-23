@@ -1,3 +1,42 @@
+// ─── Badge config ─────────────────────────────────────────────────────────────
+
+export interface BadgeConfig {
+  template:      "standard" | "networking" | "vip";
+  primaryColor:  string;
+  accentColor:   string;
+  background:    "white" | "light" | "dark" | "brand";
+  fields: {
+    org:       boolean;
+    jobTitle:  boolean;
+    typeBadge: boolean;
+    qrCode:    boolean;
+    eventName: boolean;
+    logoArea:  boolean;
+  };
+  nameFontSize: "small" | "medium" | "large";
+  fontStyle:    "sans" | "serif" | "mono";
+  badgeSize:    "standard" | "tall" | "lanyard";
+  sponsorLogo: {
+    show:     boolean;
+    position: "top-right" | "bottom-left" | "bottom-center";
+  };
+}
+
+export const DEFAULT_BADGE_CONFIG: BadgeConfig = {
+  template:     "standard",
+  primaryColor: "#262e3d",
+  accentColor:  "#03ab81",
+  background:   "white",
+  fields: {
+    org: true, jobTitle: false, typeBadge: true,
+    qrCode: true, eventName: true, logoArea: false,
+  },
+  nameFontSize: "large",
+  fontStyle:    "sans",
+  badgeSize:    "standard",
+  sponsorLogo:  { show: false, position: "bottom-center" },
+};
+
 // ─── Enumerations ─────────────────────────────────────────────────────────────
 
 export type AttendeeType  = "VIP" | "Attendee" | "Exhibitor" | "Speaker";
@@ -39,17 +78,19 @@ export interface KioskState {
 
 /** Shared state — filter/tab state is per-view and not stored here */
 export interface AppState {
-  attendees: Attendee[];
-  checkedIn: Record<number, CheckInRecord>;
-  log: LogEntry[];
-  kioskState: KioskState;
+  attendees:   Attendee[];
+  checkedIn:   Record<number, CheckInRecord>;
+  log:         LogEntry[];
+  kioskState:  KioskState;
+  badgeConfig: BadgeConfig;
 }
 
 // ─── Actions ──────────────────────────────────────────────────────────────────
 
 export type Action =
-  | { type: "CHECK_IN";  attendeeId: number; checkedInBy: CheckedInBy }
-  | { type: "SET_KIOSK"; status: KioskStatus; attendee?: Attendee | null }
+  | { type: "CHECK_IN";        attendeeId: number; checkedInBy: CheckedInBy }
+  | { type: "SET_KIOSK";       status: KioskStatus; attendee?: Attendee | null }
+  | { type: "SET_BADGE_CONFIG"; config: BadgeConfig }
   | { type: "RESET" };
 
 // ─── Swapcard brand constants ─────────────────────────────────────────────────
@@ -110,10 +151,11 @@ function nowString(): string {
 }
 
 export const INITIAL_STATE: AppState = {
-  attendees: MOCK_ATTENDEES,
-  checkedIn: {},
-  log: [],
-  kioskState: { status: "idle", attendee: null },
+  attendees:   MOCK_ATTENDEES,
+  checkedIn:   {},
+  log:         [],
+  kioskState:  { status: "idle", attendee: null },
+  badgeConfig: DEFAULT_BADGE_CONFIG,
 };
 
 export function reducer(state: AppState, action: Action): AppState {
@@ -158,6 +200,9 @@ export function reducer(state: AppState, action: Action): AppState {
               : state.kioskState.attendee,
         },
       };
+
+    case "SET_BADGE_CONFIG":
+      return { ...state, badgeConfig: action.config };
 
     case "RESET":
       return { ...state, checkedIn: {}, log: [], kioskState: { status: "idle", attendee: null } };

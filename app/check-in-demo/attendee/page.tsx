@@ -173,12 +173,12 @@ export default function AttendeeView() {
 
               {/* Ticket card */}
               <div className="rounded-2xl overflow-hidden" style={{ boxShadow: BRAND.cardShadow }}>
-                <div className="flex items-center justify-between px-4 py-3" style={{ backgroundColor: BRAND.navy }}>
+                <div className="flex items-center justify-between px-4 py-3" style={{ backgroundColor: state.badgeConfig.primaryColor }}>
                   <SwapcardLogo height={13} onDark />
                   <span className="text-[10px] text-white/40">Tech Summit 2025</span>
                 </div>
                 <div className="flex bg-white">
-                  <div className="w-2 flex-shrink-0" style={{ backgroundColor: colors.stripe }} />
+                  <div className="w-2 flex-shrink-0" style={{ backgroundColor: state.badgeConfig.accentColor }} />
                   <div className="flex items-center justify-center p-3" style={{ borderRight: `1px solid ${BRAND.border}` }}>
                     <TicketQR dim={88} />
                   </div>
@@ -289,7 +289,7 @@ export default function AttendeeView() {
                   className="rounded-2xl overflow-hidden"
                   style={{ boxShadow: BRAND.cardShadow }}
                 >
-                  <div className="px-4 py-2.5 flex items-center justify-between" style={{ backgroundColor: BRAND.navy }}>
+                  <div className="px-4 py-2.5 flex items-center justify-between" style={{ backgroundColor: state.badgeConfig.primaryColor }}>
                     <span className="text-xs font-black tracking-[0.18em] text-white/80">YOUR BADGE</span>
                     <span className="text-[10px] text-white/40">Printing complete</span>
                   </div>
