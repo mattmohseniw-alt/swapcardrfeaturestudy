@@ -8,11 +8,10 @@ import SwapcardLogo from "./SwapcardLogo";
 type ViewId = "attendee" | "organizer" | "staff" | "swapcard-ops" | "badge-designer";
 
 const VIEWS: { id: ViewId; label: string; href: string }[] = [
-  { id: "attendee",        label: "Attendee",       href: "/check-in-demo/attendee" },
-  { id: "organizer",       label: "Organizer",      href: "/check-in-demo/organizer" },
-  { id: "staff",           label: "Staff",          href: "/check-in-demo/staff" },
-  { id: "swapcard-ops",    label: "Swapcard Ops",   href: "/check-in-demo/swapcard-ops" },
-  { id: "badge-designer",  label: "Badge Designer", href: "/check-in-demo/badge-designer" },
+  { id: "attendee",      label: "Attendee",     href: "/check-in-demo/attendee" },
+  { id: "organizer",     label: "Organizer",    href: "/check-in-demo/organizer" },
+  { id: "staff",         label: "Staff",        href: "/check-in-demo/staff" },
+  { id: "swapcard-ops",  label: "Swapcard Ops", href: "/check-in-demo/swapcard-ops" },
 ];
 
 const VIEW_LABELS: Record<ViewId, string> = {
