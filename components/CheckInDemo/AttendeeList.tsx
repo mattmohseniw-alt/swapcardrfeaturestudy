@@ -1,6 +1,6 @@
 "use client";
 
-import { Attendee, CheckInRecord, FilterType, TYPE_COLORS } from "./types";
+import { Attendee, CheckInRecord, FilterType, TYPE_COLORS, BRAND } from "./types";
 
 const FILTERS: { label: string; value: FilterType }[] = [
   { label: "All",       value: "all" },
@@ -42,8 +42,8 @@ export default function AttendeeList({
         className="flex-shrink-0 flex items-center gap-2 px-4 py-3 hide-scrollbar"
         style={{
           overflowX: "auto",
-          borderBottom: "1px solid #e8f0f0",
-          backgroundColor: "#fff",
+          borderBottom: `1px solid ${BRAND.border}`,
+          backgroundColor: BRAND.cardBg,
         }}
       >
         {FILTERS.map((f) => {
@@ -58,12 +58,12 @@ export default function AttendeeList({
               className="flex items-center gap-1.5 whitespace-nowrap text-xs font-semibold px-3 py-1.5 rounded-full flex-shrink-0 transition-all"
               style={{
                 backgroundColor: active
-                  ? (colors?.bg ?? "#0D3D3A")
-                  : (colors?.fill ?? "#F4FAFA"),
+                  ? (colors?.bg ?? BRAND.navy)
+                  : (colors?.fill ?? BRAND.tealFaint),
                 color: active
                   ? "#fff"
-                  : (colors?.bg ?? "#5a7a78"),
-                border: active ? "none" : `1px solid ${colors?.fill ?? "#e8f0f0"}`,
+                  : (colors?.bg ?? BRAND.navyLight),
+                border: active ? "none" : `1px solid ${colors?.fill ?? BRAND.border}`,
               }}
             >
               {f.label}
@@ -84,7 +84,7 @@ export default function AttendeeList({
       {/* Attendee list */}
       <div className="flex-1 overflow-y-auto hide-scrollbar">
         {filtered.length === 0 && (
-          <div className="py-10 text-center text-xs" style={{ color: "#9bbaba" }}>
+          <div className="py-10 text-center text-xs" style={{ color: BRAND.muted }}>
             No attendees in this category
           </div>
         )}
@@ -121,26 +121,23 @@ function AttendeeRow({ attendee, isCheckedIn, checkedInTime, colors, onCheckIn }
       style={{
         paddingTop: 14,
         paddingBottom: 14,
-        borderBottom: "1px solid #f0f8f7",
+        borderBottom: `1px solid ${BRAND.border}`,
         opacity: isCheckedIn ? 0.45 : 1,
         cursor: isCheckedIn ? "default" : "pointer",
         WebkitTapHighlightColor: "transparent",
         transition: "background-color 0.1s",
       }}
-      onTouchStart={(e) => {
-        if (!isCheckedIn) (e.currentTarget as HTMLDivElement).style.backgroundColor = "#f7fdfc";
-      }}
-      onTouchEnd={(e) => {
-        (e.currentTarget as HTMLDivElement).style.backgroundColor = "transparent";
-      }}
-      onMouseDown={(e) => {
-        if (!isCheckedIn) (e.currentTarget as HTMLDivElement).style.backgroundColor = "#f7fdfc";
-      }}
-      onMouseUp={(e) => {
-        (e.currentTarget as HTMLDivElement).style.backgroundColor = "transparent";
+      onMouseEnter={(e) => {
+        if (!isCheckedIn) (e.currentTarget as HTMLDivElement).style.backgroundColor = BRAND.tealFaint;
       }}
       onMouseLeave={(e) => {
         (e.currentTarget as HTMLDivElement).style.backgroundColor = "transparent";
+      }}
+      onMouseDown={(e) => {
+        if (!isCheckedIn) (e.currentTarget as HTMLDivElement).style.backgroundColor = BRAND.tealLight;
+      }}
+      onMouseUp={(e) => {
+        if (!isCheckedIn) (e.currentTarget as HTMLDivElement).style.backgroundColor = BRAND.tealFaint;
       }}
     >
       {/* Avatar */}
@@ -153,10 +150,10 @@ function AttendeeRow({ attendee, isCheckedIn, checkedInTime, colors, onCheckIn }
 
       {/* Name + org */}
       <div className="flex-1 min-w-0">
-        <div className="text-sm font-semibold truncate" style={{ color: "#0D3D3A" }}>
+        <div className="text-sm font-semibold truncate" style={{ color: BRAND.navy }}>
           {attendee.name}
         </div>
-        <div className="text-xs truncate mt-0.5" style={{ color: "#8aabaa" }}>
+        <div className="text-xs truncate mt-0.5" style={{ color: BRAND.muted }}>
           {attendee.org}
         </div>
       </div>
@@ -170,14 +167,14 @@ function AttendeeRow({ attendee, isCheckedIn, checkedInTime, colors, onCheckIn }
           {attendee.type}
         </span>
         {isCheckedIn ? (
-          <span className="flex items-center gap-1 text-[10px] font-semibold" style={{ color: "#1D9E75" }}>
+          <span className="flex items-center gap-1 text-[10px] font-semibold" style={{ color: BRAND.teal }}>
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-              <path d="M2 5l2.5 2.5L8 3" stroke="#1D9E75" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M2 5l2.5 2.5L8 3" stroke={BRAND.teal} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
             {checkedInTime}
           </span>
         ) : (
-          <span className="text-[10px] font-semibold" style={{ color: "#028090" }}>
+          <span className="text-[10px] font-semibold" style={{ color: BRAND.tealDark }}>
             Tap to check in
           </span>
         )}

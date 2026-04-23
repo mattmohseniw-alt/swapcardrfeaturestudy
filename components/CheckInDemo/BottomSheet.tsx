@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { KioskState, Attendee, TYPE_COLORS } from "./types";
+import { KioskState, Attendee, TYPE_COLORS, BRAND } from "./types";
+import SwapcardLogo from "./SwapcardLogo";
 
 // ─── Shared spinner ───────────────────────────────────────────────────────────
 
@@ -12,7 +13,7 @@ function Spinner() {
       animate={{ rotate: 360 }}
       transition={{ duration: 0.7, repeat: Infinity, ease: "linear" }}
     >
-      <circle cx={11} cy={11} r={8.5} stroke="#02C39A" strokeWidth={2.5} strokeDasharray="26 26" strokeLinecap="round" />
+      <circle cx={11} cy={11} r={8.5} stroke={BRAND.teal} strokeWidth={2.5} strokeDasharray="26 26" strokeLinecap="round" />
     </motion.svg>
   );
 }
@@ -27,14 +28,14 @@ function BadgePreview({ attendee }: { attendee: Attendee }) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.4, delay: 0.3, type: "spring", stiffness: 280, damping: 22 }}
       className="rounded-2xl overflow-hidden w-full"
-      style={{ boxShadow: "0 4px 20px rgba(13,61,58,0.14)" }}
+      style={{ boxShadow: BRAND.cardShadow }}
     >
       {/* Badge header */}
       <div
         className="flex items-center justify-between px-4 py-2.5"
-        style={{ backgroundColor: "#0D3D3A" }}
+        style={{ backgroundColor: BRAND.navy }}
       >
-        <span className="text-xs font-black tracking-[0.18em] text-white/80">SWAPCARD</span>
+        <SwapcardLogo height={13} onDark />
         <span className="text-[10px] text-white/40">Tech Summit 2025</span>
       </div>
 
@@ -46,11 +47,11 @@ function BadgePreview({ attendee }: { attendee: Attendee }) {
         <div className="flex-1 px-4 py-4">
           <div
             className="font-black text-xl leading-tight mb-0.5"
-            style={{ color: "#0D3D3A", letterSpacing: "-0.02em" }}
+            style={{ color: BRAND.navy, letterSpacing: "-0.02em" }}
           >
             {attendee.name}
           </div>
-          <div className="text-xs mb-3" style={{ color: "#8aabaa" }}>
+          <div className="text-xs mb-3" style={{ color: BRAND.muted }}>
             {attendee.org}
           </div>
           <span
@@ -65,10 +66,10 @@ function BadgePreview({ attendee }: { attendee: Attendee }) {
       {/* Badge footer */}
       <div
         className="flex items-center gap-2 px-4 py-2.5"
-        style={{ backgroundColor: "#F4FAFA", borderTop: "1px solid #E8F6F5" }}
+        style={{ backgroundColor: BRAND.tealFaint, borderTop: `1px solid ${BRAND.tealLight}` }}
       >
-        <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#02C39A" }} />
-        <span className="text-[10px] font-medium" style={{ color: "#5a7a78" }}>
+        <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: BRAND.teal }} />
+        <span className="text-[10px] font-medium" style={{ color: BRAND.tealDark }}>
           Checked in · Badge printing…
         </span>
       </div>
@@ -113,7 +114,7 @@ export default function BottomSheet({ kioskState }: Props) {
             <div className="flex justify-center pt-3 pb-1">
               <div
                 className="w-10 h-1 rounded-full"
-                style={{ backgroundColor: "#d1d5db" }}
+                style={{ backgroundColor: BRAND.border }}
               />
             </div>
 
@@ -126,7 +127,7 @@ export default function BottomSheet({ kioskState }: Props) {
                   className="flex flex-col items-center gap-3 py-6"
                 >
                   <Spinner />
-                  <div className="text-sm font-semibold" style={{ color: "#028090" }}>
+                  <div className="text-sm font-semibold" style={{ color: BRAND.tealDark }}>
                     Reading QR code…
                   </div>
                 </motion.div>
@@ -145,8 +146,8 @@ export default function BottomSheet({ kioskState }: Props) {
                     <svg viewBox="0 0 80 80" width={64} height={64}>
                       <motion.circle
                         cx={40} cy={40} r={36}
-                        fill="#E1F5EE"
-                        stroke="#1D9E75"
+                        fill={BRAND.tealFaint}
+                        stroke={BRAND.teal}
                         strokeWidth={2.5}
                         initial={{ scale: 0, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -154,7 +155,7 @@ export default function BottomSheet({ kioskState }: Props) {
                       />
                       <motion.path
                         d="M 22 40 L 35 53 L 58 27"
-                        stroke="#1D9E75"
+                        stroke={BRAND.teal}
                         strokeWidth={4.5}
                         fill="none"
                         strokeLinecap="round"
@@ -166,10 +167,10 @@ export default function BottomSheet({ kioskState }: Props) {
                     </svg>
 
                     <div className="text-center">
-                      <div className="text-base font-bold" style={{ color: "#0D3D3A" }}>
+                      <div className="text-base font-bold" style={{ color: BRAND.navy }}>
                         Check-in successful!
                       </div>
-                      <div className="text-xs mt-0.5" style={{ color: "#9bbaba" }}>
+                      <div className="text-xs mt-0.5" style={{ color: BRAND.muted }}>
                         Welcome, {attendee.name.split(" ")[0]}
                       </div>
                     </div>

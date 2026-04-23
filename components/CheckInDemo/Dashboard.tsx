@@ -1,12 +1,44 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Attendee, CheckInRecord, LogEntry, TYPE_COLORS, calcAvgWait } from "./types";
+import { Attendee, CheckInRecord, LogEntry, TYPE_COLORS, BRAND, calcAvgWait } from "./types";
 
 interface Props {
   attendees: Attendee[];
   checkedIn: Record<number, CheckInRecord>;
   log: LogEntry[];
+}
+
+// Simple SVG icons replacing emoji
+function IconChecked() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <circle cx="7" cy="7" r="6" fill={BRAND.tealLight}/>
+      <path d="M4 7l2.2 2.2L10 4.5" stroke={BRAND.teal} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+function IconClock() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <circle cx="7" cy="7" r="6" stroke={BRAND.navyLight} strokeWidth="1.2" fill="none"/>
+      <path d="M7 4v3.2l2 1.3" stroke={BRAND.navyLight} strokeWidth="1.2" strokeLinecap="round"/>
+    </svg>
+  );
+}
+function IconStar() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path d="M7 1.5l1.5 3.1 3.4.5-2.5 2.4.6 3.4L7 9.2l-3 1.7.6-3.4-2.5-2.4 3.4-.5z" fill="#EEEDFE" stroke="#534AB7" strokeWidth="1"/>
+    </svg>
+  );
+}
+function IconBolt() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path d="M8.5 1.5L4 8h4.5L5.5 12.5l6-7H7z" fill="#FAEEDA" stroke="#BA7517" strokeWidth="0.8"/>
+    </svg>
+  );
 }
 
 export default function Dashboard({ attendees, checkedIn, log }: Props) {
@@ -18,16 +50,16 @@ export default function Dashboard({ attendees, checkedIn, log }: Props) {
   const vipAlerts   = log.filter((e) => e.type === "VIP");
 
   const stats = [
-    { label: "Checked In",   value: checked,           color: "#1D9E75", icon: "✅" },
-    { label: "Remaining",    value: remaining,          color: "#028090", icon: "⏳" },
-    { label: "VIPs Arrived", value: vipsArrived,        color: "#534AB7", icon: "⭐" },
-    { label: "Avg Wait",     value: calcAvgWait(log),   color: "#BA7517", icon: "⚡" },
+    { label: "Checked In",   value: checked,           color: BRAND.teal,    Icon: IconChecked },
+    { label: "Remaining",    value: remaining,          color: BRAND.navyMid, Icon: IconClock  },
+    { label: "VIPs Arrived", value: vipsArrived,        color: "#534AB7",     Icon: IconStar   },
+    { label: "Avg Wait",     value: calcAvgWait(log),   color: "#BA7517",     Icon: IconBolt   },
   ];
 
   return (
     <div
       className="h-full overflow-y-auto hide-scrollbar px-4 py-4 flex flex-col gap-4"
-      style={{ backgroundColor: "#F4FAFA" }}
+      style={{ backgroundColor: BRAND.pageBg }}
     >
       {/* ── 4 stat cards ── */}
       <div className="grid grid-cols-2 gap-2">
@@ -35,10 +67,11 @@ export default function Dashboard({ attendees, checkedIn, log }: Props) {
           <div
             key={i}
             className="rounded-2xl px-4 py-3.5 bg-white"
-            style={{ boxShadow: "0 1px 8px rgba(13,61,58,0.07)" }}
+            style={{ boxShadow: BRAND.cardShadow }}
           >
-            <div className="text-[10px] mb-1.5" style={{ color: "#9bbaba" }}>
-              {s.icon} {s.label}
+            <div className="flex items-center gap-1.5 mb-1.5" style={{ color: BRAND.muted }}>
+              <s.Icon />
+              <span className="text-[10px]">{s.label}</span>
             </div>
             <div
               className="text-3xl font-black tabular-nums leading-none"
@@ -53,25 +86,25 @@ export default function Dashboard({ attendees, checkedIn, log }: Props) {
       {/* ── Progress bar ── */}
       <div
         className="rounded-2xl px-4 py-4 bg-white"
-        style={{ boxShadow: "0 1px 8px rgba(13,61,58,0.07)" }}
+        style={{ boxShadow: BRAND.cardShadow }}
       >
         <div className="flex items-center justify-between mb-2.5">
-          <span className="text-xs font-semibold" style={{ color: "#0D3D3A" }}>
+          <span className="text-xs font-semibold" style={{ color: BRAND.navy }}>
             Check-in Progress
           </span>
-          <span className="text-sm font-black" style={{ color: "#02C39A" }}>
+          <span className="text-sm font-black" style={{ color: BRAND.teal }}>
             {pct}%
           </span>
         </div>
-        <div className="h-2.5 rounded-full overflow-hidden" style={{ backgroundColor: "#E8F6F5" }}>
+        <div className="h-2.5 rounded-full overflow-hidden" style={{ backgroundColor: BRAND.tealLight }}>
           <div
             className="h-full rounded-full transition-all duration-500"
-            style={{ width: `${pct}%`, backgroundColor: "#02C39A" }}
+            style={{ width: `${pct}%`, backgroundColor: BRAND.teal }}
           />
         </div>
         <div className="flex justify-between mt-2">
-          <span className="text-[11px]" style={{ color: "#9bbaba" }}>{checked} checked in</span>
-          <span className="text-[11px]" style={{ color: "#9bbaba" }}>{remaining} remaining</span>
+          <span className="text-[11px]" style={{ color: BRAND.muted }}>{checked} checked in</span>
+          <span className="text-[11px]" style={{ color: BRAND.muted }}>{remaining} remaining</span>
         </div>
       </div>
 
@@ -79,7 +112,7 @@ export default function Dashboard({ attendees, checkedIn, log }: Props) {
       <div>
         <div
           className="text-[10px] font-bold uppercase tracking-widest mb-2.5"
-          style={{ color: "#9bbaba" }}
+          style={{ color: BRAND.muted }}
         >
           VIP Alerts
         </div>
@@ -87,9 +120,9 @@ export default function Dashboard({ attendees, checkedIn, log }: Props) {
           <div
             className="text-xs text-center py-5 rounded-2xl"
             style={{
-              color: "#9bbaba",
+              color: BRAND.muted,
               backgroundColor: "rgba(255,255,255,0.7)",
-              border: "1px dashed #e0eeee",
+              border: `1px dashed ${BRAND.border}`,
             }}
           >
             No VIPs checked in yet
@@ -105,16 +138,16 @@ export default function Dashboard({ attendees, checkedIn, log }: Props) {
                   transition={{ duration: 0.25 }}
                   className="flex items-center gap-3 rounded-xl px-3 py-3 bg-white"
                   style={{
-                    boxShadow: "0 1px 6px rgba(13,61,58,0.07)",
+                    boxShadow: BRAND.cardShadow,
                     borderLeft: "3px solid #534AB7",
                   }}
                 >
-                  <span className="text-base flex-shrink-0">⭐</span>
+                  <IconStar />
                   <div className="flex-1 min-w-0">
-                    <div className="text-xs font-semibold truncate" style={{ color: "#0D3D3A" }}>
+                    <div className="text-xs font-semibold truncate" style={{ color: BRAND.navy }}>
                       {alert.name}
                     </div>
-                    <div className="text-[10px] mt-0.5" style={{ color: "#9bbaba" }}>
+                    <div className="text-[10px] mt-0.5" style={{ color: BRAND.muted }}>
                       arrived · {alert.time}
                     </div>
                   </div>

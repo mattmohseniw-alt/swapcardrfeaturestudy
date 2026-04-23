@@ -119,7 +119,7 @@ function SearchPanel() {
               ) : (
                 <button
                   onClick={() => checkIn(a.id, "staff")}
-                  className="flex-shrink-0 text-[10px] font-bold px-2.5 py-1.5 rounded-lg transition-all active:scale-95"
+                  className="flex-shrink-0 text-[10px] font-bold px-2.5 py-1.5 rounded-lg transition-all active:scale-95 hover:opacity-85"
                   style={{ backgroundColor: BRAND.teal, color: "#fff", cursor: "pointer" }}
                 >
                   Check in

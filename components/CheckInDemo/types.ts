@@ -82,7 +82,7 @@ export const TYPE_COLORS: Record<
   AttendeeType,
   { bg: string; fill: string; text: string; stripe: string }
 > = {
-  Attendee: { bg: "#03ab81", fill: "#D7F5F1", text: "#016d53", stripe: "#03ab81" },
+  Attendee: { bg: "#0284C7", fill: "#E0F2FE", text: "#0369A1", stripe: "#0284C7" },
   VIP:      { bg: "#534AB7", fill: "#EEEDFE", text: "#2d268a", stripe: "#534AB7" },
   Exhibitor:{ bg: "#BA7517", fill: "#FAEEDA", text: "#7a4d0e", stripe: "#BA7517" },
   Speaker:  { bg: "#D85A30", fill: "#FAECE7", text: "#8c3417", stripe: "#D85A30" },

@@ -200,7 +200,9 @@ export default function AttendeeView() {
               {/* VIP fast-track banner */}
               {attendee.type === "VIP" && !isCheckedIn && (
                 <div className="rounded-xl px-4 py-3 flex items-center gap-3" style={{ backgroundColor: "#EEEDFE", border: "1px solid #c5c1f8" }}>
-                  <span className="text-lg">⭐</span>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style={{ flexShrink: 0 }}>
+                    <path d="M9 1.5l2 4.2 4.6.7-3.3 3.2.8 4.6L9 12l-4.1 2.2.8-4.6L2.4 6.4l4.6-.7z" fill="#EEEDFE" stroke="#534AB7" strokeWidth="1.2" strokeLinejoin="round"/>
+                  </svg>
                   <div>
                     <div className="text-xs font-bold" style={{ color: "#534AB7" }}>VIP fast-track lane</div>
                     <div className="text-[11px]" style={{ color: "#7a73d4" }}>Proceed to Desk 1 — no queue</div>
@@ -218,7 +220,7 @@ export default function AttendeeView() {
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.25 }}
                     onClick={() => checkIn(selectedId, "self")}
-                    className="w-full py-4 rounded-2xl text-base font-black text-white transition-all active:scale-[0.98]"
+                    className="w-full py-4 rounded-2xl text-base font-black text-white transition-all active:scale-[0.98] hover:opacity-90"
                     style={{ backgroundColor: BRAND.teal }}
                   >
                     Tap to check in
@@ -247,8 +249,13 @@ export default function AttendeeView() {
                         {record.time} · {record.checkedInBy === "staff" ? "Staff-assisted" : "Self-serve"}
                       </div>
                     </div>
-                    <div className="text-xs font-medium" style={{ color: BRAND.teal }}>
-                      🖨 Your badge is printing…
+                    <div className="flex items-center gap-1.5 text-xs font-medium" style={{ color: BRAND.teal }}>
+                      <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                        <rect x="2" y="5" width="10" height="7" rx="1" stroke="currentColor" strokeWidth="1.3"/>
+                        <path d="M4 5V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" stroke="currentColor" strokeWidth="1.3"/>
+                        <path d="M4 9h6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                      </svg>
+                      Your badge is printing…
                     </div>
                   </motion.div>
                 )}
@@ -258,13 +265,13 @@ export default function AttendeeView() {
               <div className="rounded-2xl p-4 bg-white" style={{ boxShadow: BRAND.cardShadow }}>
                 <div className="text-xs font-bold mb-3" style={{ color: BRAND.navy }}>Event Details</div>
                 {[
-                  { icon: "📅", label: "Date",    val: "April 23–24, 2026" },
-                  { icon: "📍", label: "Venue",   val: "ExCeL London · Hall A" },
-                  { icon: "🎤", label: "Keynote", val: "09:30 — Main Stage" },
-                  { icon: "🍽", label: "Lunch",   val: "12:30 — Hall B Terrace" },
+                  { label: "Date",    val: "April 23–24, 2026" },
+                  { label: "Venue",   val: "ExCeL London · Hall A" },
+                  { label: "Keynote", val: "09:30 — Main Stage" },
+                  { label: "Lunch",   val: "12:30 — Hall B Terrace" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-center gap-3 py-1.5" style={{ borderBottom: `1px solid ${BRAND.border}` }}>
-                    <span className="text-sm w-5 text-center">{item.icon}</span>
+                    <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: BRAND.teal }} />
                     <div>
                       <div className="text-[10px]" style={{ color: BRAND.muted }}>{item.label}</div>
                       <div className="text-xs font-medium" style={{ color: BRAND.navy }}>{item.val}</div>

@@ -7,6 +7,47 @@ import { MOCK_ATTENDEES, TYPE_COLORS, BRAND, AttendeeType } from "@/components/C
 import ViewNav from "@/components/CheckInDemo/ViewNav";
 import SwapcardLogo from "@/components/CheckInDemo/SwapcardLogo";
 
+// ─── Nav icons ────────────────────────────────────────────────────────────────
+
+function NavIcon({ name }: { name: string }) {
+  const cls = "flex-shrink-0";
+  if (name === "grid") return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className={cls}>
+      <rect x="1" y="1" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3"/>
+      <rect x="8" y="1" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3"/>
+      <rect x="1" y="8" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3"/>
+      <rect x="8" y="8" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3"/>
+    </svg>
+  );
+  if (name === "users") return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className={cls}>
+      <circle cx="5" cy="4.5" r="2.5" stroke="currentColor" strokeWidth="1.3"/>
+      <path d="M1 11.5c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+      <circle cx="10.5" cy="4" r="2" stroke="currentColor" strokeWidth="1.2"/>
+      <path d="M13 11c0-1.7-1.1-3.1-2.5-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+    </svg>
+  );
+  if (name === "badge") return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className={cls}>
+      <rect x="2" y="3" width="10" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.3"/>
+      <path d="M5 1h4v3.5a2 2 0 0 1-4 0V1z" stroke="currentColor" strokeWidth="1.3"/>
+      <path d="M4.5 8.5h5M4.5 10.5h3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+    </svg>
+  );
+  if (name === "chart") return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className={cls}>
+      <path d="M1.5 12V8.5M5 12V6M8.5 12V3.5M12 12V1.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+    </svg>
+  );
+  if (name === "gear") return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className={cls}>
+      <circle cx="7" cy="7" r="2" stroke="currentColor" strokeWidth="1.3"/>
+      <path d="M7 1.5v1M7 11.5v1M1.5 7h1M11.5 7h1M3.1 3.1l.7.7M10.2 10.2l.7.7M10.9 3.1l-.7.7M3.8 10.2l-.7.7" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+    </svg>
+  );
+  return null;
+}
+
 // ─── Type breakdown rows ──────────────────────────────────────────────────────
 
 const TYPE_ROWS: { type: AttendeeType }[] = [
@@ -20,11 +61,11 @@ const TYPE_ROWS: { type: AttendeeType }[] = [
 
 function Sidebar({ checkedCount, total }: { checkedCount: number; total: number }) {
   const NAV = [
-    { label: "Overview",        icon: "▦", active: true },
-    { label: "Attendees",       icon: "👥", active: false },
-    { label: "Badge Designer",  icon: "🎫", active: false },
-    { label: "Reports",         icon: "📈", active: false },
-    { label: "Settings",        icon: "⚙",  active: false },
+    { label: "Overview",        icon: "grid",   active: true },
+    { label: "Attendees",       icon: "users",  active: false },
+    { label: "Badge Designer",  icon: "badge",  active: false },
+    { label: "Reports",         icon: "chart",  active: false },
+    { label: "Settings",        icon: "gear",   active: false },
   ];
 
   return (
@@ -49,13 +90,19 @@ function Sidebar({ checkedCount, total }: { checkedCount: number; total: number 
         {NAV.map((item) => (
           <div
             key={item.label}
-            className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg cursor-pointer"
+            className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg cursor-pointer transition-colors"
             style={{
               backgroundColor: item.active ? `rgba(3,171,129,0.15)` : "transparent",
               color: item.active ? BRAND.teal : "rgba(255,255,255,0.38)",
             }}
+            onMouseEnter={(e) => {
+              if (!item.active) (e.currentTarget as HTMLDivElement).style.backgroundColor = "rgba(255,255,255,0.06)";
+            }}
+            onMouseLeave={(e) => {
+              if (!item.active) (e.currentTarget as HTMLDivElement).style.backgroundColor = "transparent";
+            }}
           >
-            <span className="text-sm w-4 text-center">{item.icon}</span>
+            <NavIcon name={item.icon} />
             <span className="text-[13px] font-semibold">{item.label}</span>
           </div>
         ))}
@@ -97,7 +144,11 @@ function ReprintToast({ msg }: { msg: string | null }) {
             boxShadow: "0 8px 24px rgba(0,0,0,0.18)",
           }}
         >
-          <span style={{ color: BRAND.teal }}>🖨</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ flexShrink: 0, color: BRAND.teal }}>
+            <rect x="2" y="5" width="10" height="7" rx="1" stroke="currentColor" strokeWidth="1.3"/>
+            <path d="M4 5V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" stroke="currentColor" strokeWidth="1.3"/>
+            <path d="M4 9h6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          </svg>
           {msg}
         </motion.div>
       )}
@@ -371,6 +422,14 @@ export default function OrganizerView() {
                         color: BRAND.navyMid,
                         border: `1px solid ${BRAND.border}`,
                         cursor: "pointer",
+                      }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLButtonElement).style.backgroundColor = BRAND.pageBg;
+                        (e.currentTarget as HTMLButtonElement).style.borderColor = BRAND.navyLight;
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLButtonElement).style.backgroundColor = "white";
+                        (e.currentTarget as HTMLButtonElement).style.borderColor = BRAND.border;
                       }}
                     >
                       Reprint
