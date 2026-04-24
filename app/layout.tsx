@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Swapcard — Check-In Demo",
-  description: "Swapcard onsite check-in multi-perspective demo",
+  title: "Onsite — Check-In Demo",
+  description: "Onsite check-in multi-perspective demo",
 };
 
 export default function RootLayout({

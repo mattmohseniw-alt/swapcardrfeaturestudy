@@ -51,7 +51,7 @@ const PERSPECTIVES = [
   },
   {
     id: "swapcard-ops",
-    title: "Swapcard Ops",
+    title: "Platform Ops",
     desc: "Internal platform monitoring — API health, event stream and platform metrics.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none">

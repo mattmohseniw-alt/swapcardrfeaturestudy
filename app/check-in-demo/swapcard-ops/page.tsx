@@ -192,8 +192,8 @@ export default function SwapcardOpsView() {
           <div className="flex items-center gap-2.5">
             <SwapcardPicto size={28} />
             <div>
-              <div className="text-[11px] font-black tracking-[0.12em] text-white/70">SWAPCARD PLATFORM</div>
-              <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>Internal Ops · EVT-2025-0042</div>
+              <div className="text-[11px] font-black tracking-[0.12em] text-white/70">ONSITE PLATFORM</div>
+              <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>Platform Ops · EVT-2025-0042</div>
             </div>
           </div>
           <div

@@ -51,7 +51,8 @@ const QR_CELLS = buildQR();
 
 function TicketQR({ dim }: { dim: number }) {
   return (
-    <svg width={dim} height={dim} viewBox={`0 0 ${QR_N} ${QR_N}`} shapeRendering="crispEdges">
+    <svg width={dim} height={dim} viewBox={`0 0 ${QR_N} ${QR_N}`} shapeRendering="crispEdges" style={{ display: "block" }}>
+      <rect width={QR_N} height={QR_N} fill="white" />
       {QR_CELLS.map((f, i) =>
         f ? <rect key={i} x={i % QR_N} y={Math.floor(i / QR_N)} width={1} height={1} fill={BRAND.navy} /> : null
       )}
@@ -111,7 +112,7 @@ export default function AttendeeView() {
           className="relative flex-shrink-0"
           style={{
             width: 390,
-            height: "min(810px, calc(100vh - 80px))",
+            height: "min(660px, calc(100vh - 100px))",
             background: "linear-gradient(160deg, #2c2c2e 0%, #1c1c1e 45%, #111113 100%)",
             borderRadius: 44,
             padding: 12,
@@ -124,7 +125,7 @@ export default function AttendeeView() {
           }}
         >
           {/* Dynamic island */}
-          <div className="absolute z-20 rounded-full" style={{ width: 120, height: 34, backgroundColor: "#000", top: 20, left: "50%", transform: "translateX(-50%)" }} />
+          <div className="absolute z-20 rounded-full" style={{ width: 110, height: 30, backgroundColor: "#000", top: 18, left: "50%", transform: "translateX(-50%)" }} />
           {/* Side buttons */}
           <div className="absolute rounded-l-sm" style={{ width: 3, height: 34, top: 128, left: -3, background: "linear-gradient(180deg, #3a3a3c, #2a2a2c)" }} />
           <div className="absolute rounded-l-sm" style={{ width: 3, height: 34, top: 178, left: -3, background: "linear-gradient(180deg, #3a3a3c, #2a2a2c)" }} />
@@ -152,49 +153,62 @@ export default function AttendeeView() {
             </div>
 
             {/* Scrollable content */}
-            <div className="flex-1 overflow-y-auto hide-scrollbar px-4 py-4 flex flex-col gap-4">
+            <div className="flex-1 min-h-0 overflow-y-auto hide-scrollbar px-4 py-4 flex flex-col gap-4">
 
               {/* Attendee picker */}
               <div>
                 <label className="text-[10px] font-bold uppercase tracking-wider block mb-1.5" style={{ color: BRAND.muted }}>
                   Playing as
                 </label>
-                <select
-                  value={selectedId}
-                  onChange={(e) => setSelectedId(Number(e.target.value))}
-                  className="w-full rounded-xl px-3 py-2.5 text-sm font-medium bg-white appearance-none"
-                  style={{ border: `1px solid ${BRAND.border}`, color: BRAND.navy, outline: "none" }}
-                >
-                  {MOCK_ATTENDEES.map((a) => (
-                    <option key={a.id} value={a.id}>{a.name} — {a.type}</option>
-                  ))}
-                </select>
+                <div className="relative">
+                  <select
+                    value={selectedId}
+                    onChange={(e) => setSelectedId(Number(e.target.value))}
+                    className="w-full rounded-xl px-3 py-2.5 pr-8 text-sm font-medium bg-white appearance-none"
+                    style={{ border: `1px solid ${BRAND.border}`, color: BRAND.navy, outline: "none" }}
+                  >
+                    {MOCK_ATTENDEES.map((a) => (
+                      <option key={a.id} value={a.id}>{a.name} — {a.type}</option>
+                    ))}
+                  </select>
+                  <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                    <path d="M1 1l5 5 5-5" stroke={BRAND.muted} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
               </div>
 
-              {/* Ticket card */}
+              {/* Ticket info card */}
               <div className="rounded-2xl overflow-hidden" style={{ boxShadow: BRAND.cardShadow }}>
                 <div className="flex items-center justify-between px-4 py-3" style={{ backgroundColor: state.badgeConfig.primaryColor }}>
                   <SwapcardLogo height={13} onDark />
                   <span className="text-[10px] text-white/40">Tech Summit 2025</span>
                 </div>
                 <div className="flex bg-white">
-                  <div className="w-2 flex-shrink-0" style={{ backgroundColor: state.badgeConfig.accentColor }} />
-                  <div className="flex items-center justify-center p-3" style={{ borderRight: `1px solid ${BRAND.border}` }}>
-                    <TicketQR dim={88} />
-                  </div>
+                  <div className="w-1.5 flex-shrink-0" style={{ backgroundColor: state.badgeConfig.accentColor }} />
                   <div className="flex-1 px-4 py-4">
-                    <div className="font-black text-base leading-tight mb-0.5" style={{ color: BRAND.navy }}>
+                    <div className="font-black text-base leading-tight truncate" style={{ color: BRAND.navy }}>
                       {attendee.name}
                     </div>
-                    <div className="text-xs mb-3" style={{ color: BRAND.muted }}>{attendee.org}</div>
-                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: colors.fill, color: colors.bg }}>
-                      {attendee.type}
-                    </span>
-                    <div className="mt-2 text-[10px]" style={{ color: BRAND.muted }}>
-                      Hall A · April 23, 2026
+                    <div className="text-xs mt-0.5 mb-3 truncate" style={{ color: BRAND.muted }}>{attendee.org}</div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: colors.fill, color: colors.bg }}>
+                        {attendee.type}
+                      </span>
+                      <span className="text-[10px]" style={{ color: BRAND.muted }}>Hall A · Apr 23</span>
                     </div>
                   </div>
                 </div>
+              </div>
+
+              {/* QR code card */}
+              <div
+                className="rounded-2xl bg-white flex flex-col items-center py-6 gap-3"
+                style={{ boxShadow: BRAND.cardShadow }}
+              >
+                <TicketQR dim={220} />
+                <span className="text-[9px] font-bold tracking-[0.18em] uppercase" style={{ color: BRAND.muted }}>
+                  Scan to check in
+                </span>
               </div>
 
               {/* VIP fast-track banner */}
@@ -269,8 +283,8 @@ export default function AttendeeView() {
                   { label: "Venue",   val: "ExCeL London · Hall A" },
                   { label: "Keynote", val: "09:30 — Main Stage" },
                   { label: "Lunch",   val: "12:30 — Hall B Terrace" },
-                ].map((item) => (
-                  <div key={item.label} className="flex items-center gap-3 py-1.5" style={{ borderBottom: `1px solid ${BRAND.border}` }}>
+                ].map((item, i, arr) => (
+                  <div key={item.label} className="flex items-center gap-3 py-1.5" style={{ borderBottom: i < arr.length - 1 ? `1px solid ${BRAND.border}` : "none" }}>
                     <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: BRAND.teal }} />
                     <div>
                       <div className="text-[10px]" style={{ color: BRAND.muted }}>{item.label}</div>

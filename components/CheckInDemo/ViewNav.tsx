@@ -11,14 +11,14 @@ const VIEWS: { id: ViewId; label: string; href: string }[] = [
   { id: "attendee",      label: "Attendee",     href: "/check-in-demo/attendee" },
   { id: "organizer",     label: "Organizer",    href: "/check-in-demo/organizer" },
   { id: "staff",         label: "Staff",        href: "/check-in-demo/staff" },
-  { id: "swapcard-ops",  label: "Swapcard Ops", href: "/check-in-demo/swapcard-ops" },
+  { id: "swapcard-ops",  label: "Platform Ops", href: "/check-in-demo/swapcard-ops" },
 ];
 
 const VIEW_LABELS: Record<ViewId, string> = {
   attendee:         "Attendee View",
   organizer:        "Organizer Dashboard",
   staff:            "Staff Kiosk",
-  "swapcard-ops":   "Internal Ops",
+  "swapcard-ops":   "Platform Ops",
   "badge-designer": "Badge Designer",
 };
 
