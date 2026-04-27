@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useCheckIn } from "../context";
-import { MOCK_ATTENDEES, TYPE_COLORS, BRAND, AttendeeType } from "@/components/CheckInDemo/types";
+import { MOCK_ATTENDEES, TYPE_COLORS, BRAND, AttendeeType, CheckedInBy } from "@/components/CheckInDemo/types";
 import ViewNav from "@/components/CheckInDemo/ViewNav";
 import KioskPanel from "@/components/CheckInDemo/KioskPanel";
 import SwapcardPicto from "@/components/CheckInDemo/SwapcardPicto";
@@ -133,6 +133,192 @@ function SearchPanel() {
   );
 }
 
+// ─── Mobile-native staff layout ───────────────────────────────────────────────
+
+function MobileStaffView({
+  checkedCount,
+  total,
+  remaining,
+  avgTime,
+  countdown,
+  checkInBatch,
+}: {
+  checkedCount: number;
+  total: number;
+  remaining: number;
+  avgTime: string;
+  countdown: string;
+  checkInBatch: (filter: (a: { type: string }) => boolean, by: CheckedInBy) => void;
+}) {
+  const { state, checkIn } = useCheckIn();
+  const [query, setQuery] = useState("");
+
+  const filtered = MOCK_ATTENDEES.filter(
+    (a) =>
+      a.name.toLowerCase().includes(query.toLowerCase()) ||
+      a.org.toLowerCase().includes(query.toLowerCase())
+  );
+
+  return (
+    <div className="flex flex-col flex-1 overflow-hidden">
+      {/* Header */}
+      <div
+        className="flex-shrink-0 flex items-center justify-between px-4 py-3"
+        style={{ backgroundColor: BRAND.navy }}
+      >
+        <div className="flex items-center gap-2">
+          <SwapcardPicto size={18} />
+          <div>
+            <div className="text-xs font-black text-white tracking-tight">Check-in Desk 2</div>
+            <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.4)" }}>Staff: Jordan</div>
+          </div>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: BRAND.teal }} />
+          <span className="text-xs font-bold tabular-nums" style={{ color: BRAND.teal }}>
+            {checkedCount}/{total}
+          </span>
+        </div>
+      </div>
+
+      {/* Queue stats strip */}
+      <div
+        className="flex-shrink-0 flex items-center gap-4 px-4 py-2.5"
+        style={{ backgroundColor: "rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.08)" }}
+      >
+        {[
+          { label: "In queue", value: remaining, color: BRAND.teal },
+          { label: "Checked in", value: checkedCount, color: "#03ab81" },
+          { label: "Avg time", value: avgTime, color: "#BA7517" },
+        ].map((s) => (
+          <div key={s.label} className="flex items-baseline gap-1.5">
+            <span className="text-base font-black tabular-nums" style={{ color: s.color }}>{s.value}</span>
+            <span className="text-[10px] font-medium" style={{ color: "rgba(255,255,255,0.3)" }}>{s.label}</span>
+          </div>
+        ))}
+        <div className="ml-auto text-[10px] font-semibold tabular-nums" style={{ color: "rgba(255,255,255,0.3)" }}>
+          ⏱ {countdown}
+        </div>
+      </div>
+
+      {/* Search */}
+      <div
+        className="flex-shrink-0 px-3 py-2.5"
+        style={{ backgroundColor: "white", borderBottom: `1px solid ${BRAND.border}` }}
+      >
+        <div className="relative">
+          <svg className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <circle cx="5.5" cy="5.5" r="4" stroke={BRAND.muted} strokeWidth="1.4"/>
+            <path d="M9 9l2.5 2.5" stroke={BRAND.muted} strokeWidth="1.4" strokeLinecap="round"/>
+          </svg>
+          <input
+            type="text"
+            placeholder="Search attendees…"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="w-full pl-8 pr-3 py-2.5 rounded-lg text-sm font-medium"
+            style={{
+              backgroundColor: BRAND.pageBg,
+              border: `1px solid ${BRAND.border}`,
+              color: BRAND.navy,
+              outline: "none",
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Attendee list */}
+      <div className="flex-1 overflow-y-auto hide-scrollbar" style={{ backgroundColor: "white" }}>
+        {filtered.map((a) => {
+          const checked = !!state.checkedIn[a.id];
+          const colors  = TYPE_COLORS[a.type];
+          return (
+            <div
+              key={a.id}
+              className="flex items-center gap-3 px-4 py-3"
+              style={{
+                borderBottom: `1px solid ${BRAND.border}`,
+                opacity: checked ? 0.5 : 1,
+              }}
+            >
+              <div
+                className="w-9 h-9 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold text-white"
+                style={{ backgroundColor: colors.bg }}
+              >
+                {a.initials}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-sm font-semibold truncate" style={{ color: BRAND.navy }}>{a.name}</div>
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  <span
+                    className="text-[10px] font-bold px-1.5 py-0.5 rounded-full"
+                    style={{ backgroundColor: colors.fill, color: colors.bg }}
+                  >
+                    {a.type}
+                  </span>
+                  {checked && (
+                    <span className="text-[10px] font-semibold" style={{ color: BRAND.teal }}>
+                      ✓ {state.checkedIn[a.id].time}
+                    </span>
+                  )}
+                </div>
+              </div>
+              {checked ? (
+                <div
+                  className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: BRAND.tealLight }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
+                    <path d="M2.5 6l2.5 2.5L9.5 3.5" stroke={BRAND.teal} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+              ) : (
+                <button
+                  onClick={() => checkIn(a.id, "staff")}
+                  className="flex-shrink-0 text-xs font-bold px-3 py-2 rounded-xl min-w-[76px] min-h-[36px] active:scale-95 transition-transform"
+                  style={{ backgroundColor: BRAND.teal, color: "#fff", cursor: "pointer", border: "none" }}
+                >
+                  Check in
+                </button>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Bulk actions footer */}
+      <div
+        className="flex-shrink-0 flex items-center gap-2 px-4 py-3 flex-wrap"
+        style={{ backgroundColor: BRAND.navy, borderTop: "1px solid rgba(255,255,255,0.07)" }}
+      >
+        <span className="text-[10px] font-semibold flex-shrink-0" style={{ color: "rgba(255,255,255,0.35)" }}>
+          Bulk:
+        </span>
+        {(["Exhibitor", "Speaker"] as AttendeeType[]).map((type) => {
+          const rem    = MOCK_ATTENDEES.filter((a) => a.type === type && !state.checkedIn[a.id]).length;
+          const colors = TYPE_COLORS[type];
+          return (
+            <button
+              key={type}
+              onClick={() => checkInBatch((a) => a.type === type, "staff")}
+              disabled={rem === 0}
+              className="text-xs font-bold px-3 py-2 rounded-lg min-h-[36px] active:scale-95 transition-transform"
+              style={{
+                backgroundColor: rem > 0 ? colors.fill : "rgba(255,255,255,0.07)",
+                color: rem > 0 ? colors.bg : "rgba(255,255,255,0.2)",
+                cursor: rem > 0 ? "pointer" : "default",
+                border: `1px solid ${rem > 0 ? colors.bg + "44" : "transparent"}`,
+              }}
+            >
+              All {type}s {rem > 0 ? `(${rem})` : "✓"}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function StaffView() {
@@ -160,10 +346,23 @@ export default function StaffView() {
     >
       <ViewNav active="staff" />
 
-      <div className="flex-1 flex items-center justify-center px-0 sm:px-6 py-4 overflow-auto hide-scrollbar">
-        <div className="flex items-start gap-5 flex-shrink-0 min-w-max px-4 sm:px-0">
+      {/* ── Mobile layout (< md) ── */}
+      <div className="flex md:hidden flex-1 overflow-hidden">
+        <MobileStaffView
+          checkedCount={checkedCount}
+          total={total}
+          remaining={remaining}
+          avgTime={avgTime}
+          countdown={countdown}
+          checkInBatch={checkInBatch}
+        />
+      </div>
 
-          {/* ── Tablet frame ── */}
+      {/* ── Desktop layout (md+): tablet frame ── */}
+      <div className="hidden md:flex flex-1 items-center justify-center px-6 py-4 overflow-auto hide-scrollbar">
+        <div className="flex items-start gap-5 flex-shrink-0">
+
+          {/* Tablet frame */}
           <div
             className="relative flex-shrink-0"
             style={{
@@ -202,7 +401,7 @@ export default function StaffView() {
                 backgroundColor: BRAND.pageBg,
               }}
             >
-              {/* Screen header — Swapcard brand navy */}
+              {/* Screen header */}
               <div
                 className="flex-shrink-0 flex items-center justify-between px-4 py-2.5"
                 style={{ backgroundColor: BRAND.navy }}
