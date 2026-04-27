@@ -96,8 +96,8 @@ export type Action =
 // ─── Swapcard brand constants ─────────────────────────────────────────────────
 
 export const BRAND = {
-  teal:        "#03ab81",   // primary brand green
-  tealDark:    "#028a68",   // hover / active teal
+  teal:        "#03ab81",   // primary brand teal
+  tealDark:    "#026d68",   // deep teal / hover active
   tealLight:   "#D7F5F1",   // light teal highlight bg
   tealFaint:   "#edfaf6",   // very light teal surface
   navy:        "#262e3d",   // primary dark / sidebar bg
@@ -106,6 +106,8 @@ export const BRAND = {
   muted:       "#8b99a8",   // muted text
   border:      "#d4dae3",   // borders / dividers
   orange:      "#d1481d",   // CTA / accent orange
+  orangeDark:  "#b3371b",   // orange hover
+  orangeLight: "#fce8e2",   // light orange fill
   pageBg:      "#f4f5f7",   // light page background
   cardBg:      "#ffffff",   // card background
   cardShadow:  "0 2px 12px rgba(172,184,205,0.28)",
@@ -123,10 +125,10 @@ export const TYPE_COLORS: Record<
   AttendeeType,
   { bg: string; fill: string; text: string; stripe: string }
 > = {
-  Attendee: { bg: "#0284C7", fill: "#E0F2FE", text: "#0369A1", stripe: "#0284C7" },
-  VIP:      { bg: "#534AB7", fill: "#EEEDFE", text: "#2d268a", stripe: "#534AB7" },
-  Exhibitor:{ bg: "#BA7517", fill: "#FAEEDA", text: "#7a4d0e", stripe: "#BA7517" },
-  Speaker:  { bg: "#D85A30", fill: "#FAECE7", text: "#8c3417", stripe: "#D85A30" },
+  VIP:      { bg: "#03ab81", fill: "#D7F5F1", text: "#026d68", stripe: "#03ab81" },
+  Exhibitor:{ bg: "#d1481d", fill: "#fce8e2", text: "#b3371b", stripe: "#d1481d" },
+  Speaker:  { bg: "#262e3d", fill: "#e8eaed", text: "#374255", stripe: "#262e3d" },
+  Attendee: { bg: "#374255", fill: "#eceef1", text: "#5a6478", stripe: "#374255" },
 };
 
 // ─── Mock data ────────────────────────────────────────────────────────────────

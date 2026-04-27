@@ -3,7 +3,7 @@
 @theme {
   /* Swapcard brand palette */
   --color-brand-teal:       #03ab81;
-  --color-brand-teal-dark:  #028a68;
+  --color-brand-teal-dark:  #026d68;  /* deep teal — shadows, labels */
   --color-brand-teal-light: #D7F5F1;
   --color-brand-navy:       #262e3d;
   --color-brand-navy-mid:   #374255;
@@ -22,6 +22,7 @@
 :root {
   --background: #ffffff;
   --foreground: #262e3d;
+  --ease-swapcard: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 body {
@@ -36,7 +37,112 @@ body {
   box-sizing: border-box;
 }
 
-/* Utility: hide scrollbar while keeping scroll behaviour */
+/* ── Pill buttons ───────────────────────────────────────────── */
+.btn-pill-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0 1.5rem;
+  height: 48px;
+  border-radius: 30px;
+  background-color: #d1481d;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s var(--ease-swapcard), transform 0.15s var(--ease-swapcard);
+}
+.btn-pill-primary:hover {
+  background-color: #b3371b;
+  transform: translateY(-1px);
+}
+
+.btn-pill-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0 1.5rem;
+  height: 48px;
+  border-radius: 30px;
+  background-color: transparent;
+  color: #262e3d;
+  font-weight: 700;
+  font-size: 15px;
+  border: 1.5px solid #d4dae3;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease-swapcard), color 0.2s var(--ease-swapcard), transform 0.15s var(--ease-swapcard);
+}
+.btn-pill-ghost:hover {
+  border-color: #03ab81;
+  color: #03ab81;
+  transform: translateY(-1px);
+}
+
+/* ── Swapcard card hover (light bg context) ─────────────────── */
+.swapcard-card-hover {
+  transition:
+    transform 0.5s var(--ease-swapcard),
+    box-shadow 0.5s var(--ease-swapcard),
+    background-color 0.5s var(--ease-swapcard);
+}
+.swapcard-card-hover:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 20px 48px rgba(172, 184, 205, 0.35);
+  background-color: #D7F5F1;
+}
+
+/* Slide context — tighter lift to avoid clipping */
+.swapcard-card-hover-sm {
+  transition:
+    transform 0.5s var(--ease-swapcard),
+    box-shadow 0.5s var(--ease-swapcard),
+    background-color 0.5s var(--ease-swapcard);
+}
+.swapcard-card-hover-sm:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 36px rgba(172, 184, 205, 0.3);
+  background-color: #D7F5F1;
+}
+
+/* Dark surface card hover */
+.swapcard-card-hover-dark {
+  transition:
+    transform 0.5s var(--ease-swapcard),
+    box-shadow 0.5s var(--ease-swapcard),
+    background-color 0.5s var(--ease-swapcard),
+    border-color 0.5s var(--ease-swapcard);
+}
+.swapcard-card-hover-dark:hover {
+  transform: translateY(-12px);
+  background-color: rgba(3, 171, 129, 0.1) !important;
+  border-color: rgba(3, 171, 129, 0.3) !important;
+  box-shadow: 0 20px 48px rgba(3, 171, 129, 0.12);
+}
+
+/* ── Logo marquee ───────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 22s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Utility: hide scrollbar while keeping scroll behaviour ── */
 .hide-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;

@@ -521,9 +521,9 @@ export default function OrganizerView() {
 
   function renderAttendeesTab() {
     return (
-      <div className="px-8 py-6 max-w-[1240px]">
+      <div className="px-4 sm:px-8 py-4 sm:py-6 max-w-[1240px]">
         <div className="mb-6">
-          <h1 className="text-2xl font-black" style={{ color: BRAND.navy, letterSpacing: "-0.03em" }}>
+          <h1 className="text-xl sm:text-2xl font-black" style={{ color: BRAND.navy, letterSpacing: "-0.03em" }}>
             Attendees
           </h1>
           <p className="text-sm mt-1" style={{ color: BRAND.muted }}>
@@ -531,14 +531,14 @@ export default function OrganizerView() {
           </p>
         </div>
 
-        <div className="grid grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <MetricCard label="Registered" value={total} accent={BRAND.navy} />
           <MetricCard label="Checked In" value={checkedCount} accent={BRAND.teal} />
           <MetricCard label="Pending" value={pendingCount} accent="#BA7517" />
           <MetricCard label="VIP Onsite" value={vipOnsite} accent="#534AB7" />
         </div>
 
-        <div className="grid gap-4 mb-6" style={{ gridTemplateColumns: "1.3fr 0.7fr" }}>
+        <div className="grid grid-cols-1 md:grid-cols-[1.3fr_0.7fr] gap-4 mb-6">
           <SurfaceCard className="p-5">
             <div className="flex items-center justify-between mb-4">
               <div>
@@ -630,7 +630,7 @@ export default function OrganizerView() {
           </SurfaceCard>
         </div>
 
-        <div className="grid gap-4" style={{ gridTemplateColumns: "1.35fr 0.65fr" }}>
+        <div className="grid grid-cols-1 md:grid-cols-[1.35fr_0.65fr] gap-4">
           <SurfaceCard className="overflow-hidden">
             <div className="px-5 py-4" style={{ borderBottom: `1px solid ${BRAND.border}` }}>
               <div className="flex items-center justify-between gap-3 mb-4">
@@ -670,7 +670,7 @@ export default function OrganizerView() {
                     <button
                       key={item.value}
                       onClick={() => setTypeFilter(item.value)}
-                      className="text-[11px] font-semibold px-3 py-1.5 rounded-full"
+                      className="text-xs font-semibold px-3 py-2 rounded-full min-h-[36px]"
                       style={{
                         border: active ? "none" : `1px solid ${colors ? colors.fill : BRAND.border}`,
                         backgroundColor: active ? (colors ? colors.bg : BRAND.navy) : (colors ? colors.fill : "white"),
@@ -685,10 +685,12 @@ export default function OrganizerView() {
               </div>
             </div>
 
+            <div className="overflow-x-auto">
             <div
               className="grid px-5 py-3 text-[10px] font-bold uppercase tracking-widest"
               style={{
                 gridTemplateColumns: "1.2fr 1fr 110px 120px 90px 98px",
+                minWidth: 640,
                 backgroundColor: BRAND.pageBg,
                 color: BRAND.muted,
                 borderBottom: `1px solid ${BRAND.border}`,
@@ -702,7 +704,7 @@ export default function OrganizerView() {
               <span />
             </div>
 
-            <div className="max-h-[520px] overflow-y-auto hide-scrollbar">
+            <div className="max-h-[520px] overflow-y-auto hide-scrollbar" style={{ minWidth: 640 }}>
               {filteredAttendees.map((attendee, index) => {
                 const record = state.checkedIn[attendee.id];
                 const checked = !!record;
@@ -750,7 +752,7 @@ export default function OrganizerView() {
                     {checked ? (
                       <button
                         onClick={() => handleReprint(attendee.name)}
-                        className="text-[11px] font-semibold px-3 py-1.5 rounded-lg"
+                        className="text-xs font-semibold px-3 py-2 rounded-lg min-h-[36px]"
                         style={{
                           backgroundColor: "white",
                           color: staffReprintEnabled ? BRAND.navyMid : BRAND.muted,
@@ -763,7 +765,7 @@ export default function OrganizerView() {
                     ) : (
                       <button
                         onClick={() => handleCheckIn(attendee.id)}
-                        className="text-[11px] font-semibold px-3 py-1.5 rounded-lg"
+                        className="text-xs font-semibold px-3 py-2 rounded-lg min-h-[36px]"
                         style={{ backgroundColor: BRAND.teal, color: "white", border: "none", cursor: "pointer" }}
                       >
                         Check in
@@ -773,6 +775,7 @@ export default function OrganizerView() {
                 );
               })}
             </div>
+            </div>{/* end overflow-x-auto */}
           </SurfaceCard>
 
           <div className="flex flex-col gap-4">
@@ -887,9 +890,9 @@ export default function OrganizerView() {
 
   function renderBadgeTab() {
     return (
-      <div className="px-8 py-6 max-w-[1240px]">
+      <div className="px-4 sm:px-8 py-4 sm:py-6 max-w-[1240px]">
         <div className="mb-6">
-          <h1 className="text-2xl font-black" style={{ color: BRAND.navy, letterSpacing: "-0.03em" }}>
+          <h1 className="text-xl sm:text-2xl font-black" style={{ color: BRAND.navy, letterSpacing: "-0.03em" }}>
             Badge Design
           </h1>
           <p className="text-sm mt-1" style={{ color: BRAND.muted }}>
@@ -897,7 +900,7 @@ export default function OrganizerView() {
           </p>
         </div>
 
-        <div className="grid gap-4" style={{ gridTemplateColumns: "380px 1fr" }}>
+        <div className="grid grid-cols-1 md:grid-cols-[380px_1fr] gap-4">
           <SurfaceCard className="p-5">
             <div className="text-[10px] font-bold uppercase tracking-[0.18em] mb-3" style={{ color: BRAND.muted }}>
               Quick Presets
@@ -1038,9 +1041,9 @@ export default function OrganizerView() {
 
   function renderReportsTab() {
     return (
-      <div className="px-8 py-6 max-w-[1240px]">
+      <div className="px-4 sm:px-8 py-4 sm:py-6 max-w-[1240px]">
         <div className="mb-6">
-          <h1 className="text-2xl font-black" style={{ color: BRAND.navy, letterSpacing: "-0.03em" }}>
+          <h1 className="text-xl sm:text-2xl font-black" style={{ color: BRAND.navy, letterSpacing: "-0.03em" }}>
             Reports
           </h1>
           <p className="text-sm mt-1" style={{ color: BRAND.muted }}>
@@ -1048,7 +1051,7 @@ export default function OrganizerView() {
           </p>
         </div>
 
-        <div className="grid grid-cols-5 gap-4 mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mb-6">
           <MetricCard label="Arrival Rate" value={`${pct}%`} accent={BRAND.teal} />
           <MetricCard label="Self-serve" value={selfServeCount} accent="#0284C7" />
           <MetricCard label="Staff-assisted" value={staffAssistedCount} accent="#D85A30" />
@@ -1056,7 +1059,7 @@ export default function OrganizerView() {
           <MetricCard label="No-shows" value={pendingCount} accent={BRAND.navyMid} />
         </div>
 
-        <div className="grid gap-4 mb-6" style={{ gridTemplateColumns: "1fr 1fr" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           <SurfaceCard className="p-5">
             <div className="flex items-center justify-between mb-4">
               <div className="text-sm font-bold" style={{ color: BRAND.navy }}>Attendee Type Performance</div>
@@ -1111,7 +1114,7 @@ export default function OrganizerView() {
           </SurfaceCard>
         </div>
 
-        <div className="grid gap-4" style={{ gridTemplateColumns: "0.8fr 1.2fr" }}>
+        <div className="grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-4">
           <SurfaceCard className="p-5">
             <div className="text-sm font-bold mb-4" style={{ color: BRAND.navy }}>Event Snapshot</div>
             <div className="flex flex-col gap-3 text-xs">
@@ -1183,9 +1186,9 @@ export default function OrganizerView() {
 
   function renderSettingsTab() {
     return (
-      <div className="px-8 py-6 max-w-[1040px]">
+      <div className="px-4 sm:px-8 py-4 sm:py-6 max-w-[1040px]">
         <div className="mb-6">
-          <h1 className="text-2xl font-black" style={{ color: BRAND.navy, letterSpacing: "-0.03em" }}>
+          <h1 className="text-xl sm:text-2xl font-black" style={{ color: BRAND.navy, letterSpacing: "-0.03em" }}>
             Settings
           </h1>
           <p className="text-sm mt-1" style={{ color: BRAND.muted }}>
@@ -1193,7 +1196,7 @@ export default function OrganizerView() {
           </p>
         </div>
 
-        <div className="grid gap-4" style={{ gridTemplateColumns: "1fr 1fr" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <SurfaceCard className="p-5">
             <div className="text-sm font-bold mb-4" style={{ color: BRAND.navy }}>Onsite Controls</div>
             <div className="flex flex-col gap-4">
@@ -1283,8 +1286,43 @@ export default function OrganizerView() {
   return (
     <div className="flex flex-col h-screen overflow-hidden" style={{ backgroundColor: BRAND.pageBg }}>
       <ViewNav active="organizer" />
+
+      {/* Mobile tab bar — visible below md, hidden on desktop */}
+      <div
+        className="flex md:hidden flex-shrink-0 overflow-x-auto hide-scrollbar"
+        style={{ backgroundColor: BRAND.navy, borderBottom: "1px solid rgba(255,255,255,0.07)" }}
+      >
+        {NAV_ITEMS.map((item) => {
+          const active = activeTab === item.id;
+          return (
+            <button
+              key={item.id}
+              onClick={() => setActiveTab(item.id)}
+              className="flex items-center gap-2 px-4 py-2.5 whitespace-nowrap text-xs font-semibold flex-shrink-0 relative"
+              style={{
+                color: active ? BRAND.teal : "rgba(255,255,255,0.45)",
+                backgroundColor: "transparent",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              {item.label}
+              {active && (
+                <span
+                  className="absolute bottom-0 left-4 right-4 h-0.5 rounded-t-full"
+                  style={{ backgroundColor: BRAND.teal }}
+                />
+              )}
+            </button>
+          );
+        })}
+      </div>
+
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar activeTab={activeTab} onTabChange={setActiveTab} checkedCount={checkedCount} total={total} />
+        {/* Desktop sidebar — hidden on mobile */}
+        <div className="hidden md:flex flex-shrink-0">
+          <Sidebar activeTab={activeTab} onTabChange={setActiveTab} checkedCount={checkedCount} total={total} />
+        </div>
         <div className="flex-1 overflow-y-auto hide-scrollbar" style={{ backgroundColor: BRAND.pageBg }}>
           {activeTab === "attendees" && renderAttendeesTab()}
           {activeTab === "badge" && renderBadgeTab()}

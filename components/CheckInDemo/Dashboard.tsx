@@ -29,14 +29,14 @@ function IconClock() {
 function IconStar() {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-      <path d="M7 1.5l1.5 3.1 3.4.5-2.5 2.4.6 3.4L7 9.2l-3 1.7.6-3.4-2.5-2.4 3.4-.5z" fill="#EEEDFE" stroke="#534AB7" strokeWidth="1"/>
+      <path d="M7 1.5l1.5 3.1 3.4.5-2.5 2.4.6 3.4L7 9.2l-3 1.7.6-3.4-2.5-2.4 3.4-.5z" fill={BRAND.tealLight} stroke={BRAND.teal} strokeWidth="1"/>
     </svg>
   );
 }
 function IconBolt() {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-      <path d="M8.5 1.5L4 8h4.5L5.5 12.5l6-7H7z" fill="#FAEEDA" stroke="#BA7517" strokeWidth="0.8"/>
+      <path d="M8.5 1.5L4 8h4.5L5.5 12.5l6-7H7z" fill={BRAND.orangeLight} stroke={BRAND.orange} strokeWidth="0.8"/>
     </svg>
   );
 }
@@ -52,8 +52,8 @@ export default function Dashboard({ attendees, checkedIn, log }: Props) {
   const stats = [
     { label: "Checked In",   value: checked,           color: BRAND.teal,    Icon: IconChecked },
     { label: "Remaining",    value: remaining,          color: BRAND.navyMid, Icon: IconClock  },
-    { label: "VIPs Arrived", value: vipsArrived,        color: "#534AB7",     Icon: IconStar   },
-    { label: "Avg Wait",     value: calcAvgWait(log),   color: "#BA7517",     Icon: IconBolt   },
+    { label: "VIPs Arrived", value: vipsArrived,        color: BRAND.teal,    Icon: IconStar   },
+    { label: "Avg Wait",     value: calcAvgWait(log),   color: BRAND.orange,  Icon: IconBolt   },
   ];
 
   return (
@@ -139,7 +139,7 @@ export default function Dashboard({ attendees, checkedIn, log }: Props) {
                   className="flex items-center gap-3 rounded-xl px-3 py-3 bg-white"
                   style={{
                     boxShadow: BRAND.cardShadow,
-                    borderLeft: "3px solid #534AB7",
+                    borderLeft: `3px solid ${BRAND.teal}`,
                   }}
                 >
                   <IconStar />

@@ -160,8 +160,8 @@ export default function StaffView() {
     >
       <ViewNav active="staff" />
 
-      <div className="flex-1 flex items-center justify-center px-6 py-4 overflow-auto hide-scrollbar">
-        <div className="flex items-start gap-5 flex-shrink-0">
+      <div className="flex-1 flex items-center justify-center px-0 sm:px-6 py-4 overflow-auto hide-scrollbar">
+        <div className="flex items-start gap-5 flex-shrink-0 min-w-max px-4 sm:px-0">
 
           {/* ── Tablet frame ── */}
           <div

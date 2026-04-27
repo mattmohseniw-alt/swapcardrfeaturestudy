@@ -103,7 +103,7 @@ export default function BottomSheet({ kioskState }: Props) {
 
           {/* Sheet */}
           <motion.div
-            className="absolute bottom-0 left-0 right-0 z-50 rounded-t-3xl overflow-hidden"
+            className="absolute bottom-0 left-0 right-0 z-50 rounded-t-3xl overflow-hidden max-h-[80vh] overflow-y-auto"
             style={{ backgroundColor: "#fff" }}
             initial={{ y: "100%" }}
             animate={{ y: 0 }}

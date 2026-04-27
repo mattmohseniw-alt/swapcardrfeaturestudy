@@ -79,10 +79,10 @@ export default function CheckInHubPage() {
       }}
     >
       {/* ── Top bar ── */}
-      <header className="flex items-center justify-between px-8 pt-6 pb-2 flex-shrink-0">
+      <header className="flex items-center justify-between px-4 sm:px-8 pt-6 pb-2 flex-shrink-0">
         <div className="flex items-center gap-3">
           <SwapcardLogo height={22} onDark />
-          <span className="text-[11px] px-2 py-0.5 rounded-full font-semibold" style={{ backgroundColor: "rgba(3,171,129,0.15)", color: BRAND.teal }}>
+          <span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{ backgroundColor: "rgba(3,171,129,0.15)", color: BRAND.teal }}>
             Demo
           </span>
         </div>
@@ -102,7 +102,7 @@ export default function CheckInHubPage() {
           </div>
           <button
             onClick={reset}
-            className="text-[11px] font-medium transition-colors"
+            className="text-xs font-medium transition-colors"
             style={{ color: "rgba(255,255,255,0.2)" }}
           >
             Reset ↺
@@ -112,10 +112,10 @@ export default function CheckInHubPage() {
 
       {/* ── Hero ── */}
       <div className="text-center mt-8 mb-6 px-4">
-        <div className="text-[11px] font-bold tracking-[0.2em] uppercase mb-4" style={{ color: `rgba(3,171,129,0.6)` }}>
+        <div className="text-xs font-bold tracking-[0.2em] uppercase mb-4" style={{ color: `rgba(3,171,129,0.6)` }}>
           Tech Summit 2025 · Hall A · Live simulation
         </div>
-        <h1 className="text-5xl font-black text-white mb-3" style={{ letterSpacing: "-0.03em", lineHeight: 1.1 }}>
+        <h1 className="text-3xl sm:text-5xl font-black text-white mb-3" style={{ letterSpacing: "-0.03em", lineHeight: 1.1 }}>
           One event.{" "}
           <span style={{ color: BRAND.teal }}>Four perspectives.</span>
         </h1>
@@ -125,8 +125,8 @@ export default function CheckInHubPage() {
       </div>
 
       {/* ── Progress bar ── */}
-      <div className="mx-auto mb-8 w-full max-w-[680px] px-8">
-        <div className="flex justify-between text-[11px] mb-1.5" style={{ color: "rgba(255,255,255,0.25)" }}>
+      <div className="mx-auto mb-8 w-full max-w-[680px] px-4 sm:px-8">
+        <div className="flex justify-between text-xs mb-1.5" style={{ color: "rgba(255,255,255,0.25)" }}>
           <span>Global progress</span>
           <span className="font-bold tabular-nums" style={{ color: BRAND.teal }}>{pct}%</span>
         </div>
@@ -139,12 +139,12 @@ export default function CheckInHubPage() {
       </div>
 
       {/* ── 2×2 perspective cards ── */}
-      <div className="flex-1 flex items-center justify-center px-8 pb-10">
-        <div className="grid grid-cols-2 gap-4 w-full" style={{ maxWidth: 720 }}>
+      <div className="flex-1 flex items-center justify-center px-4 sm:px-8 pb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full" style={{ maxWidth: 720 }}>
           {PERSPECTIVES.map((p) => (
             <Link key={p.id} href={p.href} className="group block">
               <div
-                className="rounded-2xl p-6 h-full flex flex-col transition-all duration-200 group-hover:translate-y-[-2px]"
+                className="rounded-2xl p-6 h-full flex flex-col swapcard-card-hover-dark"
                 style={{
                   backgroundColor: "rgba(255,255,255,0.055)",
                   border: "1px solid rgba(255,255,255,0.09)",
@@ -180,7 +180,7 @@ export default function CheckInHubPage() {
                       return (
                         <span
                           key={t}
-                          className="text-[9px] font-bold px-1.5 py-0.5 rounded-full"
+                          className="text-[10px] font-bold px-1.5 py-0.5 rounded-full"
                           style={{ backgroundColor: `${TYPE_COLORS[t].bg}22`, color: TYPE_COLORS[t].bg }}
                         >
                           {checked}/{total}
@@ -206,13 +206,13 @@ export default function CheckInHubPage() {
 
       {/* ── Type legend ── */}
       <div
-        className="flex items-center justify-center gap-6 py-3 px-8 flex-shrink-0"
+        className="flex items-center justify-center gap-4 sm:gap-6 py-3 px-4 sm:px-8 flex-shrink-0 flex-wrap"
         style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
       >
         {(["VIP", "Exhibitor", "Speaker", "Attendee"] as const).map((t) => (
           <div key={t} className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full" style={{ backgroundColor: TYPE_COLORS[t].bg }} />
-            <span className="text-[11px] font-medium" style={{ color: "rgba(255,255,255,0.28)" }}>{t}</span>
+            <span className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.28)" }}>{t}</span>
           </div>
         ))}
       </div>

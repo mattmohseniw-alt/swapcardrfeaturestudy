@@ -90,14 +90,14 @@ export default function LogTab({ log, onReset }: Props) {
       <div className="flex-shrink-0 px-4 py-4" style={{ borderTop: `1px solid ${BRAND.border}` }}>
         <button
           onClick={onReset}
-          className="w-full py-3 rounded-2xl text-sm font-semibold transition-colors"
+          className="w-full py-3 rounded-full text-sm font-semibold transition-colors"
           style={{
-            border: "1px solid #fca5a5",
-            color: "#ef4444",
+            border: `1px solid rgba(209,72,29,0.35)`,
+            color: BRAND.orange,
             backgroundColor: "transparent",
           }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#fef2f2";
+            (e.currentTarget as HTMLButtonElement).style.backgroundColor = BRAND.orangeLight;
           }}
           onMouseLeave={(e) => {
             (e.currentTarget as HTMLButtonElement).style.backgroundColor = "transparent";

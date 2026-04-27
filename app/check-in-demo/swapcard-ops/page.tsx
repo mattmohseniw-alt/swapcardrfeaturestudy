@@ -185,14 +185,14 @@ export default function SwapcardOpsView() {
 
       {/* ── Ops header ── */}
       <div
-        className="flex-shrink-0 flex items-center justify-between px-6 py-3"
+        className="flex-shrink-0 flex items-center justify-between flex-wrap gap-2 px-4 sm:px-6 py-3"
         style={{ backgroundColor: BRAND.darkBg, borderBottom: "1px solid rgba(255,255,255,0.07)" }}
       >
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2.5">
             <SwapcardPicto size={28} />
             <div>
-              <div className="text-[11px] font-black tracking-[0.12em] text-white/70">ONSITE PLATFORM</div>
+              <div className="text-xs font-black tracking-[0.12em] text-white/70">ONSITE PLATFORM</div>
               <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>Platform Ops · EVT-2025-0042</div>
             </div>
           </div>
@@ -203,7 +203,7 @@ export default function SwapcardOpsView() {
             LIVE
           </div>
         </div>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-3 sm:gap-5">
           <HealthPill label="API" />
           <HealthPill label="DB" />
           <HealthPill label="Queue" />
@@ -212,9 +212,9 @@ export default function SwapcardOpsView() {
       </div>
 
       {/* ── Metric cards ── */}
-      <div className="flex-shrink-0 flex gap-3 px-6 py-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+      <div className="flex-shrink-0 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 px-4 sm:px-6 py-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         {METRIC_CARDS.map((m) => (
-          <div key={m.label} className="flex-1 rounded-xl px-4 py-3" style={{ backgroundColor: surface, border: `1px solid ${surfaceBorder}` }}>
+          <div key={m.label} className="rounded-xl px-4 py-3" style={{ backgroundColor: surface, border: `1px solid ${surfaceBorder}` }}>
             <div className="text-[9px] uppercase tracking-widest font-bold mb-2" style={{ color: "rgba(255,255,255,0.25)" }}>
               {m.label}
             </div>
@@ -224,10 +224,10 @@ export default function SwapcardOpsView() {
       </div>
 
       {/* ── Main: feed + system panel ── */}
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
 
-        {/* Activity stream (60%) */}
-        <div className="flex flex-col overflow-hidden" style={{ width: "60%", borderRight: "1px solid rgba(255,255,255,0.06)" }}>
+        {/* Activity stream */}
+        <div className="flex flex-col overflow-hidden md:flex-[3] border-b border-b-white/[0.06] md:border-b-0 md:border-r md:border-r-white/[0.06]" style={{ minHeight: 220 }}>
           <div className="flex-shrink-0 flex items-center gap-2 px-4 py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
             <span className="w-1.5 h-1.5 rounded-full inline-block animate-pulse" style={{ backgroundColor: BRAND.teal }} />
             <span className="text-xs font-bold text-white">Activity Stream</span>
@@ -252,8 +252,8 @@ export default function SwapcardOpsView() {
           </div>
         </div>
 
-        {/* System panel (40%) */}
-        <div className="flex flex-col overflow-y-auto hide-scrollbar" style={{ width: "40%" }}>
+        {/* System panel */}
+        <div className="flex flex-col overflow-y-auto hide-scrollbar md:flex-[2]">
 
           {/* Badge print queue */}
           <div className="flex-shrink-0 px-5 py-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>

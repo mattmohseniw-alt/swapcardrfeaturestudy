@@ -33,7 +33,7 @@ export default function ViewNav({ active }: Props) {
 
   return (
     <nav
-      className="flex items-center gap-1 px-4 flex-shrink-0"
+      className="flex items-center gap-1 px-4 flex-shrink-0 overflow-x-auto hide-scrollbar"
       style={{
         height: 40,
         backgroundColor: BRAND.navy,
@@ -41,11 +41,11 @@ export default function ViewNav({ active }: Props) {
       }}
     >
       {/* Swapcard wordmark */}
-      <Link href="/check-in-demo" className="flex items-center mr-4 flex-shrink-0">
+      <Link href="/check-in-demo" className="flex items-center mr-3 flex-shrink-0">
         <SwapcardLogo height={18} onDark />
       </Link>
 
-      <span className="mr-3" style={{ color: "rgba(255,255,255,0.12)", fontSize: 14 }}>|</span>
+      <span className="mr-2 flex-shrink-0" style={{ color: "rgba(255,255,255,0.12)", fontSize: 14 }}>|</span>
 
       {/* View tabs */}
       {VIEWS.map((v) => {
@@ -54,7 +54,7 @@ export default function ViewNav({ active }: Props) {
           <Link
             key={v.id}
             href={v.href}
-            className="relative flex items-center px-3 h-full text-[12px] font-medium transition-colors"
+            className="relative flex items-center flex-shrink-0 px-2.5 h-full text-[12px] font-medium transition-colors whitespace-nowrap"
             style={{
               color: isActive ? BRAND.teal : "rgba(255,255,255,0.4)",
             }}
@@ -62,7 +62,7 @@ export default function ViewNav({ active }: Props) {
             {v.label}
             {isActive && (
               <span
-                className="absolute bottom-0 left-3 right-3 h-0.5 rounded-t-full"
+                className="absolute bottom-0 left-2.5 right-2.5 h-0.5 rounded-t-full"
                 style={{ backgroundColor: BRAND.teal }}
               />
             )}
@@ -71,15 +71,15 @@ export default function ViewNav({ active }: Props) {
       })}
 
       {/* Spacer */}
-      <div className="flex-1" />
+      <div className="flex-1 min-w-2" />
 
-      {/* Current view + live pill */}
-      <span className="text-[11px] font-medium mr-2" style={{ color: "rgba(255,255,255,0.25)" }}>
+      {/* Current view label — hidden on small screens */}
+      <span className="hidden sm:block text-[11px] font-medium mr-2 flex-shrink-0 whitespace-nowrap" style={{ color: "rgba(255,255,255,0.25)" }}>
         {VIEW_LABELS[active]}
       </span>
 
       <div
-        className="flex items-center gap-1.5 px-2.5 py-1 rounded-full"
+        className="flex items-center gap-1.5 px-2.5 py-1 rounded-full flex-shrink-0"
         style={{
           backgroundColor: "rgba(3,171,129,0.12)",
           border: "1px solid rgba(3,171,129,0.2)",
