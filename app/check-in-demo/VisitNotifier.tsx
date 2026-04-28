@@ -7,6 +7,8 @@ export default function VisitNotifier() {
   const pathname = usePathname()
 
   useEffect(() => {
+    if (localStorage.getItem('visit_notified')) return
+    localStorage.setItem('visit_notified', '1')
     fetch('/api/visit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -16,7 +18,7 @@ export default function VisitNotifier() {
         userAgent: navigator.userAgent,
       }),
     }).catch(() => {})
-  }, [pathname])
+  }, [])
 
   return null
 }
