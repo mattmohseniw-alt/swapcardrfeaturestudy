@@ -1,4 +1,5 @@
 import { CheckInProvider } from "./context";
+import VisitNotifier from "./VisitNotifier";
 
 export default function CheckInDemoLayout({
   children,
@@ -7,5 +8,10 @@ export default function CheckInDemoLayout({
 }) {
   // Wraps all /check-in-demo/* routes with shared state.
   // No visual chrome — each page owns its own layout.
-  return <CheckInProvider>{children}</CheckInProvider>;
+  return (
+    <CheckInProvider>
+      <VisitNotifier />
+      {children}
+    </CheckInProvider>
+  );
 }
